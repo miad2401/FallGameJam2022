@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scenes/Computer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Placeholder/Joey.jpg" type="Texture" id=2]
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=3]
-[ext_resource path="res://Art/Environment/desk.png" type="Texture" id=4]
 [ext_resource path="res://Art/Characters/Joey.png" type="Texture" id=5]
 
 [node name="Main" type="Control"]
@@ -48,9 +47,8 @@ modulate = Color( 0.372549, 0.211765, 0.054902, 1 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -192.0
-margin_bottom = -4.0
-texture = ExtResource( 4 )
+margin_top = -188.0
+texture = ExtResource( 2 )
 expand = true
 
 [node name="Computer" parent="HBoxContainer" instance=ExtResource( 1 )]
