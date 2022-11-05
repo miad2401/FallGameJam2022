@@ -5,7 +5,7 @@ public class StartingMenu : Control
 {
 	private void OnStartButtonPressed()
 	{
-		//GetTree().ChangeScene("res://Scenes/");
+		GetTree().ChangeScene("res://Scenes/Main.tscn");
 	}
 
 	private void OnSettingsButtonPressed()
