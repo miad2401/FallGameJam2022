@@ -201,7 +201,7 @@ public class Computer : Control
 
     public void loadSoundSettings(String filePath)
     {
-        soundSettings soundSettings = ResourceLoader.Load<soundSettings>(filePath);
+        soundSettings soundSettings = ResourceLoader.Load<soundSettings>(filePath, null, true);
         MusicVolumeDb = soundSettings.MusicVolumeDb;
         MusicPlayer.VolumeDb = MusicVolumeDb;
         MusicSlider.Value = soundSettings.MusicSliderValue;
@@ -226,11 +226,5 @@ public class Computer : Control
             MusicPlayer.Play();
         }
         prevTab = tab;
-    }
-
-    public void OnSettingsTabClose(int tab)
-    {
-        var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
-        ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
     }
 }
