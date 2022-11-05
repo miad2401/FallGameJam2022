@@ -27,5 +27,6 @@ public enum Trait
     Greedy,
     Trustworthy,
     Boring,
-    Nuturing
+    Nurturing,
+    Zoolater
 }

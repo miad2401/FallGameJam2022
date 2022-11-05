@@ -8,18 +8,14 @@ public class homeless : Resource
     public String Name { get; set; }
 
     [Export]
-    public List<Trait> TraitList { get; set; }
-
-    [Export]
-    public String Job { get; set; }
+    public Tuple<String,List<Trait>> Job { get; set; }
 
     [Export]
     public List<Tuple<String,List<Trait>,String>> QuestionList { get; set; }
 
-    public homeless(String name = "", List<Trait> traitList = null, String job = "", List<Tuple<String,List<Trait>,String>> questionList = null)
+    public homeless(String name = "", Tuple<String, List<Trait>> job = null, List<Tuple<String,List<Trait>,String>> questionList = null)
     {
         Name = name;
-        TraitList = traitList;
         Job = job;
         QuestionList = questionList;
     }

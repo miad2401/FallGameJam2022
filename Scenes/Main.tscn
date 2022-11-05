@@ -12,6 +12,7 @@ numHomeless = 6
 numJobTraits = 3
 homelessNamePath = "Resources/homelessNames.tres"
 jobsPath = "Resources/jobs.tres"
+questionsPath = "Resources/questions.tres"
 
 [node name="Background" type="TextureRect" parent="."]
 anchor_right = 1.0

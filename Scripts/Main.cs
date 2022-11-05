@@ -9,6 +9,7 @@ public class Main : Control
     [Export] private readonly int numJobTraits;
     [Export] private readonly string homelessNamePath;
     [Export] private readonly string jobsPath;
+    [Export] private readonly string questionsPath;
     private List<homeless> homelessList;
     public override void _Ready()
     {
@@ -16,11 +17,11 @@ public class Main : Control
         foreach (homeless homeless in homelessList)
         {
             GD.Print("Name: " + homeless.Name);
-            foreach (Trait trait in homeless.TraitList)
+            GD.Print("Job: " + homeless.Job.Item1);
+            foreach (Trait trait in homeless.Job.Item2)
             {
                 GD.Print("Trait: " + trait);
             }
-            GD.Print("Job: " + homeless.Job);
             /*
             foreach (Tuple<String, List<Trait>, String> question in homeless.QuestionList)
             {
@@ -42,8 +43,29 @@ public class Main : Control
         List<String> usedJobsList = new List<String>();
 
         String[] HomelessNames = System.IO.File.ReadAllLines(homelessNamePath);
-        String[] Jobs = System.IO.File.ReadAllLines(jobsPath);
+        String[] RawJobs = System.IO.File.ReadAllLines(jobsPath);
+        String[] Questions = System.IO.File.ReadAllLines(questionsPath);
 
+        List<Tuple<String, List<Trait>>> Jobs = new List<Tuple<String, List<Trait>>>();
+        String jobName = "";
+        List<Trait> jobTraits = new List<Trait>();
+        for (int j = 0; j < RawJobs.Length; j++)
+        {
+            if (j % (numJobTraits+1) == 0)
+            {
+                jobName = RawJobs[j];
+            }
+            else
+            {
+                Enum.TryParse<Trait>(RawJobs[j], out Trait trait);
+                jobTraits.Add(trait);
+            }
+            if(j % (numJobTraits+1) == numJobTraits)
+            {
+                Jobs.Add(new Tuple<String, List<Trait>>(jobName, jobTraits));
+                jobTraits = new List<Trait>();
+            }
+        }
         Random rand = new Random();
 
         for (int i = 0; i < numHomeless; i++)
@@ -57,27 +79,18 @@ public class Main : Control
             usedNamesList.Add(homelessName);
 
             //Randomize Job
-            int jobIndex = rand.Next(Jobs.Length / (numJobTraits+1));
-            GD.Print(jobIndex);
-            String jobName = Jobs[jobIndex* (numJobTraits + 1)];
-            while (usedJobsList.Contains(jobName))
+            Tuple<String, List<Trait>> selectedJob = Jobs[rand.Next(Jobs.Count-1)];
+            while (usedJobsList.Contains(selectedJob.Item1))
             {
-                jobIndex = rand.Next(Jobs.Length / (numJobTraits + 1));
-                jobName = Jobs[jobIndex * (numJobTraits + 1)];
+                selectedJob = Jobs[rand.Next(Jobs.Count)];
             }
-            usedJobsList.Add(jobName);
-            List<Trait> jobTraits = new List<Trait>();
-            for(int j = jobIndex * (numJobTraits + 1)+1; j < jobIndex * (numJobTraits + 1)+numJobTraits+1; j++)
-            {
-                Enum.TryParse<Trait>(Jobs[j], out Trait trait);
-                jobTraits.Add(trait);
-            }
+            usedJobsList.Add(selectedJob.Item1);
 
             //Randomize Question
-            List<String> usedQuestionsList = new List<String>();
-
+            List <String> usedQuestionsList = new List<String>();
+            int questionIndex = rand.Next(Questions.Length / (numJobTraits + 1));
             //Add homeless person to list
-            homelessListBuilder.Add(new homeless(homelessName, jobTraits, jobName));
+            homelessListBuilder.Add(new homeless(homelessName, selectedJob));
         }
         return homelessListBuilder;
     }
