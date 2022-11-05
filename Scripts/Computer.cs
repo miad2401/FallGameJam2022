@@ -121,7 +121,11 @@ public class Computer : Control
         ButtonB.Disabled = true;
         ButtonC.Disabled = true;
         addTextToLog(Username, Questions[button]);
-        addTextToLog(ApplicantsList[currentApplicant].Name, ApplicantsList[currentApplicant].QuestionList[button].Item2[0]);
+        
+        Tuple<String,List<String>,List<Trait>> currentQuestionList = ApplicantsList[currentApplicant].QuestionList[button];
+        String formattedResponse = String.Format(currentQuestionList.Item2[0], currentQuestionList.Item3[0], currentQuestionList.Item3[1], currentQuestionList.Item3[2]);
+        addTextToLog(ApplicantsList[currentApplicant].Name, formattedResponse);
+        
         if(currentQuestionSet < 3){
             askQuestions();
         }else{
