@@ -18,11 +18,13 @@ public class Computer : Control
         ButtonB = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionB");
         ButtonC = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionC");
 
+        //Test Code After this point
         addTextToLog("Social Worker", "Cookie");
         addTextToLog("No", "No Cookie");
         Questions = new String[] {"How are you?", "Do you like cookies?", "Go Away?"};
         askQuestions(Questions);
         addTextToLog("No", "No Cooasdgf");
+        addPersonToApplicatentList("jack");
     }
 
     // //Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -72,6 +74,18 @@ public class Computer : Control
         ButtonB.Disabled = true;
         ButtonC.Disabled = true;
 
-        addTextToLog("Social Worker", Questions[button-1]);
+        addTextToLog("Social Worker", Questions[button]);
+    }
+
+    void addPersonToApplicatentList(String name){
+        for(int i = 1; i <= 6; i++){
+            GetNode<OptionButton>("Browser/Jobs/VBoxContainer/JobListing" + i +"/OptionButton").AddItem(name);
+        }
+    }
+
+    void changeJobListingDescription(String desc, int index){
+        RichTextLabel listingDescr = GetNode<RichTextLabel>("Browser/Jobs/VBoxContainer/JobListing" + index +"/JobDescr");
+        listingDescr.Clear();
+        listingDescr.AppendBbcode(desc);
     }
 }
