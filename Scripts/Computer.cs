@@ -88,4 +88,8 @@ public class Computer : Control
         listingDescr.Clear();
         listingDescr.AppendBbcode(desc);
     }
+
+    void changeMusicVolume(float value){
+        GetNode<AudioStreamPlayer>("../../AudioStreamPlayer").VolumeDb = value;
+    }
 }
