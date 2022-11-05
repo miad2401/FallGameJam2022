@@ -101,7 +101,6 @@ public class Computer : Control
     {
         LogText.AppendBbcode("[right][u]---Ask one of the following questions---[/u][/right]\n");
         for(int i = 3* currentQuestionSet; i < currentQuestionSet * 3 + 3; i++){
-            GD.Print(ApplicantsList[currentApplicant].QuestionList.Count);
             Questions.Add(ApplicantsList[currentApplicant].QuestionList[i].Item1);
             LogText.AppendBbcode("[right][color=blue]"+ApplicantsList[currentApplicant].QuestionList[i].Item1+"[/color][/right]\n");
         }
@@ -127,7 +126,7 @@ public class Computer : Control
             askQuestions();
         }else{
             addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours \n\n Next!");
-            currentQuestionSet++;
+            currentQuestionSet = 0;
             currentApplicant++;
             greetingConversation();
         }
