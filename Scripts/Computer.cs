@@ -1,44 +1,73 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class Computer : Control
 {
+
+    [Export] String Username;
+
     //Stores Log Text Rick Text Label Refrence
     RichTextLabel LogText;
     //Stores Option Buttons Refrences
     Button ButtonA, ButtonB, ButtonC;
-    //Stories current questions
+    //Stores current questions
     String[] Questions;
+    //Stores todays applicants
+    List<homeless> ApplicantsList;
+    int currentApplicant = 0;
+    int chatPhase = 1;
+    String[] questions32 = new String[] {"A","B", "C"};
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        LogText = GetNode<RichTextLabel>("Browser/Log/VBoxContainer/LogText");
+        LogText = GetNode<RichTextLabel>("Browser/Log/VBoxContainer/ScrollContainer/LogText");
         ButtonA = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionA");
         ButtonB = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionB");
         ButtonC = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionC");
 
-        //Test Code After this point
-        addTextToLog("Social Worker", "Cookie");
-        addTextToLog("No", "No Cookie");
-        Questions = new String[] {"How are you?", "Do you like cookies?", "Go Away?"};
-        askQuestions(Questions);
-        addTextToLog("No", "No Cooasdgf");
-        addPersonToApplicatentList("jack");
+        //Generate and set the jobs listings
     }
 
-    // //Called every frame. 'delta' is the elapsed time since the previous frame.
-    // public override void _Process(float delta)
-    // {
+     //Called every frame. 'delta' is the elapsed time since the previous frame.
+     public override void _Process(float delta)
+     {
+        if(currentApplicant < ApplicantsList.Count){
+            if(chatPhase == 1){
+                GD.Print(ApplicantsList.Count);
+                //Move character in
+                addTextToLog(Username, "Hello, Welcome to No More Drifting! \n What is your name?");
+                addTextToLog(ApplicantsList[currentApplicant].Name, "My name is " + ApplicantsList[currentApplicant].Name);
+                addTextToLog(Username, "Ok lets get to find you a sutiable job " + ApplicantsList[currentApplicant].Name);
+                addPersonToApplicatentList(ApplicantsList[currentApplicant].Name);
 
-    // }
+                    askQuestions(questions32);
+                    //Give three questions
+                    //wait for user to pick one
+                    //Get response
+                    
+                addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours");
+                currentApplicant++;
+            }
+        }
+     }
 
     // Adds text and formats it depending on if Player or not.
+    
+    void setApplicantList(List<homeless> applicants){
+        ApplicantsList = applicants;
+    }
+
+    void Conversation(){
+
+    }
+
     public void addTextToLog(String name, String text)
     {
         //First line prints name
         //Second prints the given text
-        if (name == "Social Worker")
+        if (name == Username)
         {
             LogText.AppendBbcode("[right][u][color=blue]" + name + ":[/color][/u][/right]");
             LogText.AppendBbcode("[right][color=blue]" + text + "[/color][/right]\n");
@@ -73,7 +102,6 @@ public class Computer : Control
         ButtonA.Disabled = true;
         ButtonB.Disabled = true;
         ButtonC.Disabled = true;
-
         addTextToLog("Social Worker", Questions[button]);
     }
 

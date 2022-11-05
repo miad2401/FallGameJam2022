@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class Main : Control
 {
+    [Signal] public delegate void setApplicantList(List<homeless> homelessList);
     [Export] private readonly int numHomeless;
     [Export] private readonly int numJobTraits;
     [Export] private readonly int numQuestionTraits;
@@ -16,7 +17,12 @@ public class Main : Control
     private List<homeless> homelessList;
     public override void _Ready()
     {
+        Connect(nameof(setApplicantList), GetNode("/root/Main/HBoxContainer/Computer"), "setApplicantList");
+
         homelessList = GenerateHomeless(numHomeless);
+        
+        EmitSignal(nameof(setApplicantList), homelessList);
+
         //Debug
         /*
         foreach (homeless homeless in homelessList)
