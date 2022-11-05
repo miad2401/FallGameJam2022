@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/DriftyQuestioningPresto.mp3-cecfd7d66a5def1658e77bf968f9a2e7.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/DriftyQuestioningPresto.mp3"
+dest_files=[ "res://.import/DriftyQuestioningPresto.mp3-cecfd7d66a5def1658e77bf968f9a2e7.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

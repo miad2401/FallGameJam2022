@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/SelectJobPresto.mp3-db008217c960e8d5c129562ceaa480ff.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/SelectJobPresto.mp3"
+dest_files=[ "res://.import/SelectJobPresto.mp3-db008217c960e8d5c129562ceaa480ff.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

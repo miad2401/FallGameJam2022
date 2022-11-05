@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/StartingMenu.cs" type="Script" id=1]
+[ext_resource path="res://Sounds/Music/DriftyQuestioningAndante.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Sounds/SoundEffects/TypewriterClick2.mp3" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/SoundEffects/TypewriterClick.mp3" type="AudioStream" id=4]
 
 [node name="StartingMenu" type="Control"]
 anchor_right = 1.0
@@ -46,7 +49,104 @@ margin_right = 63.0
 margin_bottom = 92.0
 text = "Exit"
 
+[node name="Settings" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="SettingsLabel" type="Label" parent="Settings"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -25.5
+margin_top = 104.0
+margin_right = 25.5
+margin_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Settings"
+
+[node name="SliderHolder" type="VBoxContainer" parent="Settings"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -224.0
+margin_top = -20.0
+margin_right = 224.0
+margin_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MusicLabel" type="Label" parent="Settings/SliderHolder"]
+margin_right = 448.0
+margin_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Music Volume:"
+
+[node name="MusicSlider" type="HSlider" parent="Settings/SliderHolder"]
+margin_top = 18.0
+margin_right = 448.0
+margin_bottom = 34.0
+step = 0.0
+
+[node name="WhiteNoiseLabel" type="Label" parent="Settings/SliderHolder"]
+margin_top = 38.0
+margin_right = 448.0
+margin_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "White Noise Volume:"
+
+[node name="WhiteNoiseSlider" type="HSlider" parent="Settings/SliderHolder"]
+margin_top = 56.0
+margin_right = 448.0
+margin_bottom = 72.0
+
+[node name="SoundEffectsLabel" type="Label" parent="Settings/SliderHolder"]
+margin_top = 76.0
+margin_right = 448.0
+margin_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Sound Effects Volume:"
+
+[node name="SoundEffectsSlider" type="HSlider" parent="Settings/SliderHolder"]
+margin_top = 94.0
+margin_right = 448.0
+margin_bottom = 110.0
+
+[node name="ExitSettingsButton" type="Button" parent="Settings"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -45.0
+margin_top = -152.0
+margin_right = 45.0
+margin_bottom = -128.0
+text = "Exit Settings"
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
+
+[node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="WhiteNoisePlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
 [connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/SettingsButton" to="." method="OnSettingsButtonPressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/CreditsButton" to="." method="OnCreditsButtonPressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/ExitButton" to="." method="OnExitButtonPressed"]
+[connection signal="drag_ended" from="Settings/SliderHolder/MusicSlider" to="." method="OnSliderDragEnded" binds= [ "Music" ]]
+[connection signal="drag_started" from="Settings/SliderHolder/MusicSlider" to="." method="OnSliderDragStarted" binds= [ "Music" ]]
+[connection signal="value_changed" from="Settings/SliderHolder/MusicSlider" to="." method="OnSoundSliderValueChanged" binds= [ "Music" ]]
+[connection signal="drag_ended" from="Settings/SliderHolder/WhiteNoiseSlider" to="." method="OnSliderDragEnded" binds= [ "WhiteNoise" ]]
+[connection signal="drag_started" from="Settings/SliderHolder/WhiteNoiseSlider" to="." method="OnSliderDragStarted" binds= [ "WhiteNoise" ]]
+[connection signal="value_changed" from="Settings/SliderHolder/WhiteNoiseSlider" to="." method="OnSoundSliderValueChanged" binds= [ "WhiteNoise" ]]
+[connection signal="drag_ended" from="Settings/SliderHolder/SoundEffectsSlider" to="." method="OnSliderDragEnded" binds= [ "SoundEffects" ]]
+[connection signal="drag_started" from="Settings/SliderHolder/SoundEffectsSlider" to="." method="OnSliderDragStarted" binds= [ "SoundEffects" ]]
+[connection signal="value_changed" from="Settings/SliderHolder/SoundEffectsSlider" to="." method="OnSoundSliderValueChanged" binds= [ "SoundEffects" ]]
+[connection signal="pressed" from="Settings/ExitSettingsButton" to="." method="OnExitSettingsButtonPressed"]

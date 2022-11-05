@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/DriftyTheme.mp3-efeefecc73463a6eb3b7c2d3f6395e1a.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/DriftyTheme.mp3"
+dest_files=[ "res://.import/DriftyTheme.mp3-efeefecc73463a6eb3b7c2d3f6395e1a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

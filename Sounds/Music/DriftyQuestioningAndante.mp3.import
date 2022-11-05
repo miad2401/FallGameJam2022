@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/DriftyQuestioningAndante.mp3-c42e28f8ca374eb943c76eebb29eb7eb.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/DriftyQuestioningAndante.mp3"
+dest_files=[ "res://.import/DriftyQuestioningAndante.mp3-c42e28f8ca374eb943c76eebb29eb7eb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/SelectJob.mp3-953d6c4600ae3ef917dba4efe9646253.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Music/SelectJob.mp3"
+dest_files=[ "res://.import/SelectJob.mp3-953d6c4600ae3ef917dba4efe9646253.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

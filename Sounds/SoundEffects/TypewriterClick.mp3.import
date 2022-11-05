@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/TypewriterClick.mp3-49576e26e6079195357100778ad85a9a.mp3str"
+
+[deps]
+
+source_file="res://Sounds/SoundEffects/TypewriterClick.mp3"
+dest_files=[ "res://.import/TypewriterClick.mp3-49576e26e6079195357100778ad85a9a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
