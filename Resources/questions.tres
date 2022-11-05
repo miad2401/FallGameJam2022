@@ -1,6 +1,3 @@
 Sample Question 1
-Sample Answer with colored sample traits [color=red]Strong[/color], [color=blue]Weak[/color], [color=green]Persistent[/color]
-Sample Answer with uncolored sample traits Strong, Weak, Persistent
-	Strong
-	Weak
-	Persistent
+Sample Answer with colored sample traits [color=red]{0}[/color], [color=green]{1}[/color], and [color=blue]{2}[/color]
+Sample Answer with uncolored sample traits {0}, {1}, and {2}

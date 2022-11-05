@@ -7,6 +7,8 @@ public class Main : Control
 {
     [Export] private readonly int numHomeless;
     [Export] private readonly int numJobTraits;
+    [Export] private readonly int numQuestionTraits;
+    [Export] private readonly int questionLength;
     [Export] private readonly string homelessNamePath;
     [Export] private readonly string jobsPath;
     [Export] private readonly string questionsPath;
@@ -14,6 +16,8 @@ public class Main : Control
     public override void _Ready()
     {
         homelessList = GenerateHomeless(numHomeless);
+        //Debug
+        /*
         foreach (homeless homeless in homelessList)
         {
             GD.Print("Name: " + homeless.Name);
@@ -22,18 +26,20 @@ public class Main : Control
             {
                 GD.Print("Trait: " + trait);
             }
-            /*
-            foreach (Tuple<String, List<Trait>, String> question in homeless.QuestionList)
+            foreach (Tuple<String, List<String>, List<Trait>> question in homeless.QuestionList)
             {
                 GD.Print("Question: " + question.Item1);
-                foreach (Trait trait in question.Item2)
+                foreach(String answer in question.Item2)
                 {
-                    GD.Print("Question Trait: " + trait);
+                    GD.Print("Answer: " + answer);
                 }
-                GD.Print("Response: " + question.Item3);
+                foreach(Trait trait in question.Item3)
+                {
+                    GD.Print("Trait: " + trait);
+                }
             }
-            */
         }
+        */
     }
 
     private List<homeless> GenerateHomeless(int numHomeless)
@@ -44,10 +50,13 @@ public class Main : Control
 
         String[] HomelessNames = System.IO.File.ReadAllLines(homelessNamePath);
         String[] RawJobs = System.IO.File.ReadAllLines(jobsPath);
-        String[] Questions = System.IO.File.ReadAllLines(questionsPath);
+        String[] RawQuestions = System.IO.File.ReadAllLines(questionsPath);
+        Trait[] PossibleTraits = (Trait[]) Enum.GetValues(typeof(Trait));
 
+        //Change String[] of jobs and their traits to Jobs
         List<Tuple<String, List<Trait>>> Jobs = new List<Tuple<String, List<Trait>>>();
         String jobName = "";
+
         List<Trait> jobTraits = new List<Trait>();
         for (int j = 0; j < RawJobs.Length; j++)
         {
@@ -64,6 +73,27 @@ public class Main : Control
             {
                 Jobs.Add(new Tuple<String, List<Trait>>(jobName, jobTraits));
                 jobTraits = new List<Trait>();
+            }
+        }
+
+        //Change String[] of questions and its parts to Questions
+        String actualQuestion = "";
+        List<String> answerList = new List<string>();
+        List<Tuple<String, List<String>, List<Trait>>> Questions = new List<Tuple<String, List<String>, List<Trait>>>();
+        for(int j = 0; j < RawQuestions.Length; j++)
+        {
+            if(j % questionLength == 0)
+            {
+                actualQuestion = RawQuestions[j];
+            }
+            else
+            {
+                answerList.Add(RawQuestions[j]);
+            }
+            if(j % questionLength == questionLength-1)
+            {
+                Questions.Add(new Tuple<string, List<string>, List<Trait>>(actualQuestion, answerList, null));
+                answerList = new List<string>();
             }
         }
         Random rand = new Random();
@@ -87,10 +117,28 @@ public class Main : Control
             usedJobsList.Add(selectedJob.Item1);
 
             //Randomize Question
-            List <String> usedQuestionsList = new List<String>();
-            int questionIndex = rand.Next(Questions.Length / (numJobTraits + 1));
+            List<Tuple<string, List<string>, List<Trait>>> selectedQuestionList = new List<Tuple<string, List<string>, List<Trait>>>();
+            List<Trait> traitList = new List<Trait>();
+            for (int j = 0; j < numQuestionTraits * 3; j++)
+            {
+                if(j % numQuestionTraits == 0)
+                {
+                    traitList.Add(selectedJob.Item2[j / 3]);
+                }
+                else
+                {
+                    traitList.Insert(rand.Next(traitList.Count+1), PossibleTraits[rand.Next(PossibleTraits.Length-1)]);
+                }
+                if(j % numQuestionTraits == numQuestionTraits - 1)
+                {
+                    Tuple<string, List<string>, List<Trait>> randomQuestion = Questions[rand.Next(Questions.Count)];
+                    selectedQuestionList.Add(new Tuple<string, List<string>, List<Trait>>(randomQuestion.Item1, randomQuestion.Item2, traitList));
+                    traitList = new List<Trait>();
+                }
+            }
+
             //Add homeless person to list
-            homelessListBuilder.Add(new homeless(homelessName, selectedJob));
+            homelessListBuilder.Add(new homeless(homelessName, selectedJob, selectedQuestionList));
         }
         return homelessListBuilder;
     }
