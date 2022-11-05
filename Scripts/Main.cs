@@ -131,21 +131,24 @@ public class Main : Control
             //Randomize Question
             List<Tuple<string, List<string>, List<Trait>>> selectedQuestionList = new List<Tuple<string, List<string>, List<Trait>>>();
             List<Trait> traitList = new List<Trait>();
-            for (int j = 0; j < numQuestionTraits * 3; j++)
+            for(int l = 0; l < 3; l++)
             {
-                if(j % numQuestionTraits == 0)
+                for (int j = 0; j < numQuestionTraits * 3; j++)
                 {
-                    traitList.Add(selectedJob.Item2[j / 3]);
-                }
-                else
-                {
-                    traitList.Insert(rand.Next(traitList.Count+1), PossibleTraits[rand.Next(PossibleTraits.Length-1)]);
-                }
-                if(j % numQuestionTraits == numQuestionTraits - 1)
-                {
-                    Tuple<string, List<string>, List<Trait>> randomQuestion = Questions[rand.Next(Questions.Count)];
-                    selectedQuestionList.Add(new Tuple<string, List<string>, List<Trait>>(randomQuestion.Item1, randomQuestion.Item2, traitList));
-                    traitList = new List<Trait>();
+                    if (j % numQuestionTraits == 0)
+                    {
+                        traitList.Add(selectedJob.Item2[j / 3]);
+                    }
+                    else
+                    {
+                        traitList.Insert(rand.Next(traitList.Count + 1), PossibleTraits[rand.Next(PossibleTraits.Length - 1)]);
+                    }
+                    if (j % numQuestionTraits == numQuestionTraits - 1)
+                    {
+                        Tuple<string, List<string>, List<Trait>> randomQuestion = Questions[rand.Next(Questions.Count)];
+                        selectedQuestionList.Add(new Tuple<string, List<string>, List<Trait>>(randomQuestion.Item1, randomQuestion.Item2, traitList));
+                        traitList = new List<Trait>();
+                    }
                 }
             }
             //Randomize CharacterTexture

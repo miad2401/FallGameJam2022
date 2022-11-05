@@ -44,9 +44,7 @@ public class StartingMenu : Control
 	}
 	private void OnStartButtonPressed()
 	{
-		//soundSettings soundSettings = new soundSettings(2, WhiteNoiseVolumeDb, SoundEffectsVolumeDb);
 		var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
-
 		GD.Print(ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings));
 		GetTree().ChangeScene("res://Scenes/Main.tscn");
     }
@@ -69,6 +67,8 @@ public class StartingMenu : Control
 
 	private void OnExitSettingsButtonPressed()
     {
+		var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
+		ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
 		SettingsMenu.Visible=false;
 		MusicPlayer.Play();
     }

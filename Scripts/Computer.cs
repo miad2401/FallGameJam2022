@@ -4,6 +4,23 @@ using System.Collections.Generic;
 
 public class Computer : Control
 {
+    Tabs Settings;
+
+    Slider MusicSlider;
+    Slider WhiteNoiseSlider;
+    Slider SoundEffectsSlider;
+
+    List<Slider> sliderList = new List<Slider>();
+
+    int prevTab = 0;
+
+    float MusicVolumeDb;
+    float WhiteNoiseVolumeDb;
+    float SoundEffectsVolumeDb;
+
+    AudioStreamPlayer MusicPlayer;
+    AudioStreamPlayer SoundEffectsPlayer;
+    AudioStreamPlayer WhiteNoisePlayer;
 
     [Export] String Username;
 
@@ -21,12 +38,31 @@ public class Computer : Control
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        //Generate and set the jobs listings
         LogText = GetNode<RichTextLabel>("Browser/Log/VBoxContainer/ScrollContainer/LogText");
         ButtonA = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionA");
         ButtonB = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionB");
         ButtonC = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionC");
 
-        //Generate and set the jobs listings
+        Settings = GetNode<Tabs>("Browser/Settings");
+
+        MusicPlayer = GetNode<AudioStreamPlayer>("SoundPlayers/MusicPlayer");
+        SoundEffectsPlayer = GetNode<AudioStreamPlayer>("SoundPlayers/SoundEffectsPlayer");
+        WhiteNoisePlayer = GetNode<AudioStreamPlayer>("SoundPlayers/WhiteNoisePlayer");
+
+        sliderList.Add(MusicSlider = Settings.GetNode<Slider>("SliderHolder/MusicSlider"));
+        sliderList.Add(WhiteNoiseSlider = Settings.GetNode<Slider>("SliderHolder/WhiteNoiseSlider"));
+        sliderList.Add(SoundEffectsSlider = Settings.GetNode<Slider>("SliderHolder/SoundEffectsSlider"));
+
+        foreach (Slider slider in sliderList)
+        {
+            slider.MinValue = 0.0001;
+            slider.MaxValue = 1.5;
+            slider.Step = 0.0001;
+            slider.Value = 0.5;
+        }
+
+        loadSoundSettings("res://Sounds/soundSettings.tres");
     }
 
     // Adds text and formats it depending on if Player or not.
@@ -109,7 +145,89 @@ public class Computer : Control
         listingDescr.AppendBbcode(desc);
     }
 
-    void changeMusicVolume(float value){
-        GetNode<AudioStreamPlayer>("../../AudioStreamPlayer").VolumeDb = value;
+    private void OnSoundSliderValueChanged(float linearValue, String name)
+    {
+        switch (name)
+        {
+            case "Music":
+                MusicVolumeDb = GD.Linear2Db(linearValue);
+                MusicPlayer.VolumeDb = MusicVolumeDb;
+                break;
+            case "WhiteNoise":
+                WhiteNoiseVolumeDb = GD.Linear2Db(linearValue);
+                WhiteNoisePlayer.VolumeDb = WhiteNoiseVolumeDb;
+                break;
+            case "SoundEffects":
+                SoundEffectsVolumeDb = GD.Linear2Db(linearValue);
+                SoundEffectsPlayer.VolumeDb = SoundEffectsVolumeDb;
+                break;
+        }
+    }
+
+    private void OnSliderDragStarted(String name)
+    {
+        switch (name)
+        {
+            case "Music":
+                MusicPlayer.Play();
+                break;
+            case "WhiteNoise":
+                WhiteNoisePlayer.Play();
+                break;
+            case "SoundEffects":
+                SoundEffectsPlayer.Play();
+                break;
+        }
+    }
+
+    private void OnSliderDragEnded(bool changed, String name)
+    {
+        switch (name)
+        {
+            case "Music":
+                MusicPlayer.Stop();
+                break;
+            case "WhiteNoise":
+                WhiteNoisePlayer.Stop();
+                break;
+            case "SoundEffects":
+                SoundEffectsPlayer.Stop();
+                break;
+        }
+    }
+
+    public void loadSoundSettings(String filePath)
+    {
+        soundSettings soundSettings = ResourceLoader.Load<soundSettings>(filePath);
+        MusicVolumeDb = soundSettings.MusicVolumeDb;
+        MusicPlayer.VolumeDb = MusicVolumeDb;
+        MusicSlider.Value = soundSettings.MusicSliderValue;
+        WhiteNoiseVolumeDb = soundSettings.WhiteNoiseVolumeDb;
+        WhiteNoisePlayer.VolumeDb = WhiteNoiseVolumeDb;
+        WhiteNoiseSlider.Value = soundSettings.WhiteNoiseSliderValue;
+        SoundEffectsVolumeDb = soundSettings.SoundEffectsVolumeDb;
+        SoundEffectsPlayer.VolumeDb = SoundEffectsVolumeDb;
+        SoundEffectsSlider.Value = soundSettings.SoundEffectsSliderValue;
+    }
+
+    public void OnBrowserTabChanged(int tab)
+    {
+        if (tab == 2)
+        {
+            MusicPlayer.Stop();
+        }
+        else if (prevTab == 2)
+        {
+            var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
+            ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
+            MusicPlayer.Play();
+        }
+        prevTab = tab;
+    }
+
+    public void OnSettingsTabClose(int tab)
+    {
+        var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
+        ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
     }
 }
