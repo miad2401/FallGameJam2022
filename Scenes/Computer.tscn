@@ -1,0 +1,33 @@
+[gd_scene format=2]
+
+[node name="Computer" type="Control"]
+
+[node name="Screen" type="CanvasLayer" parent="."]
+
+[node name="Browser" type="TabContainer" parent="Screen"]
+margin_right = 446.0
+margin_bottom = 290.0
+
+[node name="Log" type="Tabs" parent="Screen/Browser"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Screen/Browser/Log"]
+visible = false
+margin_left = -4.0
+margin_top = -32.0
+margin_right = 36.0
+margin_bottom = 8.0
+
+[node name="Jobs" type="Tabs" parent="Screen/Browser"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
