@@ -12,6 +12,7 @@ public class Main : Control
     [Export] private readonly string homelessNamePath;
     [Export] private readonly string jobsPath;
     [Export] private readonly string questionsPath;
+    [Export] private readonly string charactersPath;
     private List<homeless> homelessList;
     public override void _Ready()
     {
@@ -20,6 +21,7 @@ public class Main : Control
         /*
         foreach (homeless homeless in homelessList)
         {
+            
             GD.Print("Name: " + homeless.Name);
             GD.Print("Job: " + homeless.Job.Item1);
             foreach (Trait trait in homeless.Job.Item2)
@@ -37,9 +39,10 @@ public class Main : Control
                 {
                     GD.Print("Trait: " + trait);
                 }
-            }
+            }        
         }
         */
+        
     }
 
     private List<homeless> GenerateHomeless(int numHomeless)
@@ -47,10 +50,12 @@ public class Main : Control
         List<homeless> homelessListBuilder = new List<homeless>();
         List<String> usedNamesList = new List<String>();
         List<String> usedJobsList = new List<String>();
+        List<String> usedCharacterList = new List<String>();
 
         String[] HomelessNames = System.IO.File.ReadAllLines(homelessNamePath);
         String[] RawJobs = System.IO.File.ReadAllLines(jobsPath);
         String[] RawQuestions = System.IO.File.ReadAllLines(questionsPath);
+        String[] CharacterLocations = System.IO.File.ReadAllLines(charactersPath);
         Trait[] PossibleTraits = (Trait[]) Enum.GetValues(typeof(Trait));
 
         //Change String[] of jobs and their traits to Jobs
@@ -96,8 +101,9 @@ public class Main : Control
                 answerList = new List<string>();
             }
         }
-        Random rand = new Random();
 
+        //Create and randomize each homeless person
+        Random rand = new Random();
         for (int i = 0; i < numHomeless; i++)
         {
             //Randomize Name
@@ -136,9 +142,15 @@ public class Main : Control
                     traitList = new List<Trait>();
                 }
             }
-
+            //Randomize CharacterTexture
+            String characterLocation = CharacterLocations[rand.Next(CharacterLocations.Length)];
+            while (usedCharacterList.Contains(characterLocation))
+            {
+                characterLocation = CharacterLocations[rand.Next(CharacterLocations.Length)];
+            }
+            Texture characterTexture = GD.Load<Texture>("res://Art/Characters/" + characterLocation + ".png");
             //Add homeless person to list
-            homelessListBuilder.Add(new homeless(homelessName, selectedJob, selectedQuestionList));
+            homelessListBuilder.Add(new homeless(homelessName, selectedJob, selectedQuestionList, characterTexture));
         }
         return homelessListBuilder;
     }
