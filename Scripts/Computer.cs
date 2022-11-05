@@ -104,8 +104,7 @@ public class Computer : Control
             Questions.Add(ApplicantsList[currentApplicant].QuestionList[i].Item1);
             LogText.AppendBbcode("[right][color=blue]"+ApplicantsList[currentApplicant].QuestionList[i].Item1+"[/color][/right]\n");
         }
-        waitForButtonClick();
-        currentQuestionSet++;
+        waitForButtonClick();      
     }
 
     //Code for when game is waiting for user to selected a question
@@ -122,11 +121,12 @@ public class Computer : Control
         ButtonC.Disabled = true;
         addTextToLog(Username, Questions[button]);
         
-        Tuple<String,List<String>,List<Trait>> currentQuestionList = ApplicantsList[currentApplicant].QuestionList[button];
+        Tuple<String,List<String>,List<Trait>> currentQuestionList = ApplicantsList[currentApplicant].QuestionList[currentQuestionSet * 3 + button];
         String formattedResponse = String.Format(currentQuestionList.Item2[0], currentQuestionList.Item3[0], currentQuestionList.Item3[1], currentQuestionList.Item3[2]);
         addTextToLog(ApplicantsList[currentApplicant].Name, formattedResponse);
         
-        if(currentQuestionSet < 3){
+        if(currentQuestionSet < 2){
+            currentQuestionSet++;
             askQuestions();
         }else{
             addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours \n\n Next!");
