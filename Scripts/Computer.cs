@@ -12,12 +12,11 @@ public class Computer : Control
     //Stores Option Buttons Refrences
     Button ButtonA, ButtonB, ButtonC;
     //Stores current questions
-    String[] Questions;
+    List<String> Questions = new List<String>();
     //Stores todays applicants
     List<homeless> ApplicantsList;
     int currentApplicant = 0;
-    int chatPhase = 1;
-    String[] questions32 = new String[] {"A","B", "C"};
+    int currentQuestionSet = 0;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -30,37 +29,19 @@ public class Computer : Control
         //Generate and set the jobs listings
     }
 
-     //Called every frame. 'delta' is the elapsed time since the previous frame.
-     public override void _Process(float delta)
-     {
-        if(currentApplicant < ApplicantsList.Count){
-            if(chatPhase == 1){
-                GD.Print(ApplicantsList.Count);
-                //Move character in
-                addTextToLog(Username, "Hello, Welcome to No More Drifting! \n What is your name?");
-                addTextToLog(ApplicantsList[currentApplicant].Name, "My name is " + ApplicantsList[currentApplicant].Name);
-                addTextToLog(Username, "Ok lets get to find you a sutiable job " + ApplicantsList[currentApplicant].Name);
-                addPersonToApplicatentList(ApplicantsList[currentApplicant].Name);
-
-                    askQuestions(questions32);
-                    //Give three questions
-                    //wait for user to pick one
-                    //Get response
-                    
-                addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours");
-                currentApplicant++;
-            }
-        }
-     }
-
     // Adds text and formats it depending on if Player or not.
     
     void setApplicantList(List<homeless> applicants){
         ApplicantsList = applicants;
+        greetingConversation();
     }
 
-    void Conversation(){
-
+    void greetingConversation(){
+        addTextToLog(Username, "Hello, Welcome to No More Drifting! \n What is your name?");
+        addTextToLog(ApplicantsList[currentApplicant].Name, "My name is " + ApplicantsList[currentApplicant].Name);
+        addTextToLog(Username, "Ok lets get to find you a sutiable job " + ApplicantsList[currentApplicant].Name);
+        addPersonToApplicatentList(ApplicantsList[currentApplicant].Name);
+        askQuestions();     
     }
 
     public void addTextToLog(String name, String text)
@@ -80,14 +61,16 @@ public class Computer : Control
     }
 
     //Clears previous questions and adds new questions
-    public void askQuestions(String[] questions)
+    public void askQuestions()
     {
-        Questions = questions;
         LogText.AppendBbcode("[right][u]---Ask one of the following questions---[/u][/right]\n");
-        foreach(String question in questions){
-            LogText.AppendBbcode("[right][color=blue]"+question+"[/color][/right]\n");
+        for(int i = 3* currentQuestionSet; i < currentQuestionSet * 3 + 3; i++){
+            GD.Print(ApplicantsList[currentApplicant].QuestionList.Count);
+            Questions.Add(ApplicantsList[currentApplicant].QuestionList[i].Item1);
+            LogText.AppendBbcode("[right][color=blue]"+ApplicantsList[currentApplicant].QuestionList[i].Item1+"[/color][/right]\n");
         }
         waitForButtonClick();
+        currentQuestionSet++;
     }
 
     //Code for when game is waiting for user to selected a question
@@ -102,7 +85,16 @@ public class Computer : Control
         ButtonA.Disabled = true;
         ButtonB.Disabled = true;
         ButtonC.Disabled = true;
-        addTextToLog("Social Worker", Questions[button]);
+        addTextToLog(Username, Questions[button]);
+        addTextToLog(ApplicantsList[currentApplicant].Name, ApplicantsList[currentApplicant].QuestionList[button].Item2[0]);
+        if(currentQuestionSet < 3){
+            askQuestions();
+        }else{
+            addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours \n\n Next!");
+            currentQuestionSet++;
+            currentApplicant++;
+            greetingConversation();
+        }
     }
 
     void addPersonToApplicatentList(String name){
