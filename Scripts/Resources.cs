@@ -14,9 +14,9 @@ public class homeless : Resource
     public String Job { get; set; }
 
     [Export]
-    public List<Tuple<String,List<Trait>>> QuestionList { get; set; }
+    public List<Tuple<String,List<Trait>,String>> QuestionList { get; set; }
 
-    public homeless(String name = "", List<Trait> traitList = null, String job = "", List<Tuple<String,List<Trait>>> questionList = null)
+    public homeless(String name = "", List<Trait> traitList = null, String job = "", List<Tuple<String,List<Trait>,String>> questionList = null)
     {
         Name = name;
         TraitList = traitList;
