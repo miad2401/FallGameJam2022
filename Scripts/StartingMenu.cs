@@ -43,9 +43,7 @@ public class StartingMenu : Control
 		loadSoundSettings("res://Sounds/soundSettings.tres");
 	}
 	private void OnStartButtonPressed()
-	{
-		var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
-		GD.Print(ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings));
+	{;
 		GetTree().ChangeScene("res://Scenes/Main.tscn");
     }
 
