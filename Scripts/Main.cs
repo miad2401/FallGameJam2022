@@ -195,4 +195,8 @@ public class Main : Control
             moveTo = CharactersHolder.GetNode<Position2D>("EndPosition").Position;
         }
     }
+
+    void _on_ContinueButton_pressed(){
+        GetTree().ChangeScene("res://Scenes/Credits.tscn");
+    }
 }

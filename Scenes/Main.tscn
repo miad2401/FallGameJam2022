@@ -260,3 +260,5 @@ margin_top = 319.0
 margin_right = 546.0
 margin_bottom = 339.0
 text = "Continue"
+
+[connection signal="pressed" from="FinishScreen/ContinueButton" to="." method="_on_ContinueButton_pressed"]

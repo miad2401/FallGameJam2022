@@ -123,7 +123,6 @@ disabled = true
 text = "C"
 
 [node name="Jobs" type="Tabs" parent="Browser"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -139,32 +138,32 @@ rect_min_size = Vector2( 480, 548 )
 rect_scale = Vector2( 1.00251, 1 )
 
 [node name="JobListing1" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
-margin_bottom = 80.0
+margin_bottom = 101.0
 
 [node name="JobListing2" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 84.0
-margin_bottom = 164.0
+margin_top = 109.0
+margin_bottom = 210.0
 
 [node name="JobListing3" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 168.0
-margin_bottom = 248.0
+margin_top = 218.0
+margin_bottom = 319.0
 
 [node name="JobListing4" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 252.0
-margin_bottom = 332.0
+margin_top = 327.0
+margin_bottom = 428.0
 
 [node name="JobListing5" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 336.0
-margin_bottom = 416.0
+margin_top = 436.0
+margin_bottom = 537.0
 
 [node name="JobListing6" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 420.0
-margin_bottom = 500.0
+margin_top = 545.0
+margin_bottom = 646.0
 
 [node name="SubmitButton" type="TextureButton" parent="Browser/Jobs/VBoxContainer"]
-margin_top = 504.0
+margin_top = 654.0
 margin_right = 480.0
-margin_bottom = 548.0
+margin_bottom = 654.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 disabled = true
