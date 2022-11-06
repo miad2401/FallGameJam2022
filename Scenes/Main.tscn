@@ -1,13 +1,49 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scenes/Computer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Environment/game_window_assets_background.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=3]
 [ext_resource path="res://Art/Environment/chair.png" type="Texture" id=4]
-[ext_resource path="res://Art/Characters/Joey.png" type="Texture" id=5]
+[ext_resource path="res://Art/Environment/SnowSpriteSheet.png" type="Texture" id=5]
 [ext_resource path="res://Art/Environment/mousenkeboard.png" type="Texture" id=6]
 [ext_resource path="res://Art/Environment/top_layer_window.png" type="Texture" id=7]
 [ext_resource path="res://Art/Environment/text_window.png" type="Texture" id=8]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Snow"
+length = 3.85
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1, 1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5, 1.55, 1.6, 1.65, 1.7, 1.75, 1.8, 1.85, 1.9, 1.95, 2, 2.05, 2.1, 2.15, 2.2, 2.25, 2.3, 2.35, 2.4, 2.45, 2.5, 2.55, 2.6, 2.65, 2.7, 2.75, 2.8, 2.85, 2.9, 2.95, 3, 3.05, 3.1, 3.15, 3.2, 3.25, 3.3, 3.35, 3.4, 3.45, 3.5, 3.55, 3.6, 3.65, 3.7, 3.75, 3.8, 3.85 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "Snow"
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -54,17 +90,41 @@ margin_left = -80.0
 margin_right = 944.0
 margin_bottom = 600.0
 texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
-[node name="Joey" type="Sprite" parent="HBoxContainer/Environment"]
-position = Vector2( 280, 383.25 )
-scale = Vector2( 0.0645389, 0.053125 )
-texture = ExtResource( 5 )
+[node name="CharactersHolder" type="Control" parent="HBoxContainer/Environment"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="StartPosition" type="Position2D" parent="HBoxContainer/Environment/CharactersHolder"]
+position = Vector2( 1005, 408 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ChairPosition" type="Position2D" parent="HBoxContainer/Environment/CharactersHolder"]
+position = Vector2( 271, 405 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="EndPosition" type="Position2D" parent="HBoxContainer/Environment/CharactersHolder"]
+position = Vector2( -483, 412 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Glass" type="TextureRect" parent="HBoxContainer/Environment"]
+modulate = Color( 1, 1, 1, 0.776471 )
 margin_left = -80.0
 margin_right = 944.0
 margin_bottom = 600.0
 texture = ExtResource( 7 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Desk" type="TextureRect" parent="HBoxContainer/Environment"]
 margin_left = -1.0
@@ -73,6 +133,27 @@ margin_right = 959.0
 margin_bottom = 692.0
 rect_scale = Vector2( 0.527297, 0.608979 )
 texture = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Snowman" type="Sprite" parent="HBoxContainer/Environment"]
+position = Vector2( 454, 447 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+hframes = 78
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HBoxContainer/Environment/Snowman"]
+anims/RESET = SubResource( 1 )
+anims/Snow = SubResource( 2 )
+
+[node name="AnimationTree" type="AnimationTree" parent="HBoxContainer/Environment/Snowman"]
+tree_root = SubResource( 3 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
 
 [node name="Computer" parent="HBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
@@ -81,6 +162,9 @@ margin_left = 512.0
 margin_right = 1024.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="FinishScreen" type="Control" parent="."]
 visible = false

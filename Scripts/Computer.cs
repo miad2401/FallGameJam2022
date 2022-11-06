@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Computer : Control
 {
+    [Signal] public delegate void moveApplicant(homeless application, bool entered);
+
     Tabs Settings;
 
     Slider MusicSlider;
@@ -44,6 +46,7 @@ public class Computer : Control
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        Connect(nameof(moveApplicant), GetNode("/root/Main"), "moveApplicant");
         userNameTextEdit = GetNode<TextEdit>("Browser/Settings/VBoxContainer/TextEdit");
         LogText = GetNode<RichTextLabel>("Browser/Log/VBoxContainer/ScrollContainer/LogText");
         ButtonA = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionA");
@@ -96,6 +99,15 @@ public class Computer : Control
         }
     }
     void greetingConversation(){
+        if(currentApplicant == 6)
+        {
+            addTextToLog(Username, "\n\n[color=white]---Go Select and Submit Your Answers In the Jobs Tab!---[/color]");
+            finished = true;
+            selectedAnswersChanged(true);
+            selectedAnswersChanged(false);
+            return;
+        }
+        MoveApplicant(ApplicantsList[currentApplicant], true);
         addTextToLog(Username, "Hello, Welcome to No More Drifting! \n What is your name?");
         addTextToLog(ApplicantsList[currentApplicant].Name, "My name is " + ApplicantsList[currentApplicant].Name);
         addTextToLog(Username, "Ok lets get to find you a sutiable job " + ApplicantsList[currentApplicant].Name);
@@ -157,6 +169,7 @@ public class Computer : Control
             selectedAnswersChanged(true);
             selectedAnswersChanged(false);
         }else{
+            EmitSignal(nameof(moveApplicant), ApplicantsList[currentApplicant], false);
             addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours \n" 
                                 + "[color=white][u]---Switch Over To The Jobs Tab To Look For Compatiable Jobs---\n[/u][/color]"
                                 +"[rainbow]"
@@ -297,5 +310,10 @@ public class Computer : Control
         }else{
             label.Text += " lives out of 6";
         }
+    }
+
+    public void MoveApplicant(homeless character, bool enter)
+    {
+        EmitSignal(nameof(moveApplicant), character, enter);
     }
 }

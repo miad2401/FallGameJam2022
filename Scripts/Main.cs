@@ -15,40 +15,45 @@ public class Main : Control
     [Export] private readonly string questionsPath;
     [Export] private readonly string charactersPath;
     private List<homeless> homelessList;
+
+    private Control CharactersHolder;
+    private bool canMoveApplicant = false;
+    private Vector2 moveTo;
+    private Vector2 moveFrom;
+    float applicantMoveProgress;
+    float timeToMoveApplicant = 2;
+    float applicantXProgress;
+    float applicantYProgress;
+    Sprite currentSprite;
     public override void _Ready()
     {
         Connect(nameof(setApplicantList), GetNode("/root/Main/HBoxContainer/Computer"), "setApplicantList");
 
         homelessList = GenerateHomeless(numHomeless);
-        
+        CharactersHolder = GetNode<Control>("HBoxContainer/Environment/CharactersHolder");
         EmitSignal(nameof(setApplicantList), homelessList);
+    }
 
-        //Debug
-        /*
-        foreach (homeless homeless in homelessList)
+    public override void _PhysicsProcess(float delta)
+    {
+        if (canMoveApplicant)
         {
-            
-            GD.Print("Name: " + homeless.Name);
-            GD.Print("Job: " + homeless.Job.Item1);
-            foreach (Trait trait in homeless.Job.Item2)
+            if (applicantMoveProgress >= timeToMoveApplicant)
             {
-                GD.Print("Trait: " + trait);
+                canMoveApplicant = false;
+                if(moveTo.x == CharactersHolder.GetNode<Position2D>("EndPosition").Position.x)
+                {
+                    currentSprite.QueueFree();
+                }
             }
-            foreach (Tuple<String, List<String>, List<Trait>> question in homeless.QuestionList)
+            else
             {
-                GD.Print("Question: " + question.Item1);
-                foreach(String answer in question.Item2)
-                {
-                    GD.Print("Answer: " + answer);
-                }
-                foreach(Trait trait in question.Item3)
-                {
-                    GD.Print("Trait: " + trait);
-                }
-            }        
+                applicantMoveProgress += delta;
+                applicantXProgress = applicantMoveProgress * (moveFrom.x - moveTo.x) / timeToMoveApplicant;
+                applicantYProgress = applicantMoveProgress * (moveFrom.y - moveTo.y) / timeToMoveApplicant;
+                currentSprite.Position = new Vector2(moveFrom.x - applicantXProgress, moveFrom.y - applicantYProgress);
+            }
         }
-        */
-        
     }
 
     private List<homeless> GenerateHomeless(int numHomeless)
@@ -162,5 +167,32 @@ public class Main : Control
             homelessListBuilder.Add(new homeless(homelessName, selectedJob, selectedQuestionList, characterTexture));
         }
         return homelessListBuilder;
+    }
+
+    private void moveApplicant(homeless applicant, bool entered)
+    {
+        if (entered)
+        {
+            Sprite newSprite = new Sprite();
+            newSprite.Texture = applicant.Body;
+            newSprite.Position = CharactersHolder.GetNode<Position2D>("StartPosition").Position;
+            currentSprite = newSprite;
+            applicantMoveProgress = 0;
+            applicantXProgress = 0;
+            applicantYProgress = 0;
+            canMoveApplicant = true;
+            moveFrom = currentSprite.Position;
+            moveTo = CharactersHolder.GetNode<Position2D>("ChairPosition").Position;
+            CharactersHolder.AddChild(currentSprite);
+        }
+        else
+        {
+            applicantMoveProgress = 0;
+            applicantXProgress = 0;
+            applicantYProgress = 0;
+            canMoveApplicant = true;
+            moveFrom = currentSprite.Position;
+            moveTo = CharactersHolder.GetNode<Position2D>("EndPosition").Position;
+        }
     }
 }

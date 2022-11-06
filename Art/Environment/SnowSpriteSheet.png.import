@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/FanSpriteSheet.png-08ff6c23bf21e4e92ecda3b8675df87d.stex"
+path="res://.import/SnowSpriteSheet.png-043918013fb9926c27767b43bc702a77.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Environment/FanSpriteSheet.png"
-dest_files=[ "res://.import/FanSpriteSheet.png-08ff6c23bf21e4e92ecda3b8675df87d.stex" ]
+source_file="res://Art/Environment/SnowSpriteSheet.png"
+dest_files=[ "res://.import/SnowSpriteSheet.png-043918013fb9926c27767b43bc702a77.stex" ]
 
 [params]
 
