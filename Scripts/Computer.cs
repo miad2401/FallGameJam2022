@@ -9,7 +9,6 @@ public class Computer : Control
     Slider MusicSlider;
     Slider WhiteNoiseSlider;
     Slider SoundEffectsSlider;
-
     List<Slider> sliderList = new List<Slider>();
 
     int prevTab = 0;
@@ -22,8 +21,9 @@ public class Computer : Control
     AudioStreamPlayer SoundEffectsPlayer;
     AudioStreamPlayer WhiteNoisePlayer;
 
-    [Export] String Username;
+    String Username = "Jerry";
 
+    TextEdit userNameTextEdit;
     //Stores Log Text Rick Text Label Refrence
     RichTextLabel LogText;
     //Stores Option Buttons Refrences
@@ -40,7 +40,7 @@ public class Computer : Control
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        //Generate and set the jobs listings
+        userNameTextEdit = GetNode<TextEdit>("Browser/Settings/VBoxContainer/TextEdit");
         LogText = GetNode<RichTextLabel>("Browser/Log/VBoxContainer/ScrollContainer/LogText");
         ButtonA = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionA");
         ButtonB = GetNode<Button>("Browser/Log/VBoxContainer/HBoxContainer/OptionB");
@@ -67,7 +67,9 @@ public class Computer : Control
         loadSoundSettings("res://Sounds/soundSettings.tres");
     }
 
-    // Adds text and formats it depending on if Player or not.
+    void _on_username_changed(){
+        Username = userNameTextEdit.Text;
+    }
     
     void setApplicantList(List<homeless> applicants){
         ApplicantsList = applicants;

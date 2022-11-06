@@ -152,9 +152,9 @@ margin_bottom = 548.0
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
+margin_left = 4.0
 margin_top = 32.0
-margin_right = -14.0
+margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="SliderHolder" type="VBoxContainer" parent="Browser/Settings"]
@@ -204,6 +204,27 @@ margin_top = 94.0
 margin_right = 480.0
 margin_bottom = 110.0
 
+[node name="VBoxContainer" type="VBoxContainer" parent="Browser/Settings"]
+margin_right = 470.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 470, 40 )
+alignment = 1
+
+[node name="Label" type="Label" parent="Browser/Settings/VBoxContainer"]
+margin_top = 1.0
+margin_right = 470.0
+margin_bottom = 15.0
+text = "Your Name:"
+align = 1
+
+[node name="TextEdit" type="TextEdit" parent="Browser/Settings/VBoxContainer"]
+margin_left = 10.0
+margin_top = 19.0
+margin_right = 480.0
+margin_bottom = 39.0
+rect_min_size = Vector2( 0, 20 )
+text = "Jerry"
+
 [node name="SoundPlayers" type="Node" parent="."]
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="SoundPlayers"]
@@ -231,3 +252,4 @@ stream = ExtResource( 6 )
 [connection signal="drag_ended" from="Browser/Settings/SliderHolder/SoundEffectsSlider" to="." method="OnSliderDragEnded" binds= [ "SoundEffects" ]]
 [connection signal="drag_started" from="Browser/Settings/SliderHolder/SoundEffectsSlider" to="." method="OnSliderDragStarted" binds= [ "SoundEffects" ]]
 [connection signal="value_changed" from="Browser/Settings/SliderHolder/SoundEffectsSlider" to="." method="OnSoundSliderValueChanged" binds= [ "SoundEffects" ]]
+[connection signal="text_changed" from="Browser/Settings/VBoxContainer/TextEdit" to="." method="_on_username_changed"]
