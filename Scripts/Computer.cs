@@ -185,9 +185,9 @@ public class Computer : Control
             addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours \n" 
                                 + "[color=white][u]---Switch To The Jobs Tab To Look For Jobs Listings---\n[/u][/color]"
                                 +"[rainbow]"
-                                +"=============================================================\n"
+                                +"==========================================================\n"
                                 +"=========================================================="
-                                +"================================================================[/rainbow]\n");
+                                +"==========================================================[/rainbow]\n");
             currentQuestionSet = 0;
             currentApplicant++;
             requiredTabSwitch = true;
