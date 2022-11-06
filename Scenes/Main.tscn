@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scenes/Computer.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Art/Placeholder/Joey.jpg" type="Texture" id=2]
+[ext_resource path="res://Art/Environment/game_window_assets_background.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=3]
 [ext_resource path="res://Art/Environment/chair.png" type="Texture" id=4]
 [ext_resource path="res://Art/Characters/Joey.png" type="Texture" id=5]
@@ -25,8 +25,13 @@ questionsPath = "Resources/questions.tres"
 charactersPath = "Resources/characterList.tres"
 
 [node name="Background" type="TextureRect" parent="."]
+anchor_left = 0.035
+anchor_top = 0.086
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -35.84
+margin_top = -51.6
+rect_scale = Vector2( 0.52, 0.8 )
 texture = ExtResource( 2 )
 expand = true
 
