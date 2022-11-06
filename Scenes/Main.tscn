@@ -82,12 +82,12 @@ margin_right = 1024.0
 margin_bottom = 600.0
 rect_scale = Vector2( 1, 1 )
 
-[node name="Control" type="Control" parent="."]
+[node name="FinishScreen" type="Control" parent="."]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="EndBackground" type="TextureRect" parent="FinishScreen"]
 margin_left = -1181.0
 margin_top = -27.0
 margin_right = -157.0
@@ -95,7 +95,7 @@ margin_bottom = 573.0
 rect_scale = Vector2( 2.18015, 1.15667 )
 texture = ExtResource( 8 )
 
-[node name="Label" type="Label" parent="Control"]
+[node name="ScoreLabel" type="Label" parent="FinishScreen"]
 margin_left = 132.0
 margin_top = 226.0
 margin_right = 295.0
@@ -103,7 +103,7 @@ margin_bottom = 240.0
 rect_scale = Vector2( 5, 5 )
 custom_colors/font_color = Color( 0.627451, 0.0823529, 0.0823529, 1 )
 
-[node name="Button" type="Button" parent="Control"]
+[node name="ContinueButton" type="Button" parent="FinishScreen"]
 margin_left = 477.0
 margin_top = 319.0
 margin_right = 546.0
