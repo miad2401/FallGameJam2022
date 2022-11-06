@@ -21,9 +21,11 @@ public class Computer : Control
     AudioStreamPlayer SoundEffectsPlayer;
     AudioStreamPlayer WhiteNoisePlayer;
 
-    String Username = "Jerry";
+    String Username = "Mist";
 
     TextEdit userNameTextEdit;
+    private int numAnswers = 0;
+
     //Stores Log Text Rick Text Label Refrence
     RichTextLabel LogText;
     //Stores Option Buttons Refrences
@@ -36,7 +38,7 @@ public class Computer : Control
     int currentApplicant = 0;
     int currentQuestionSet = 0;
     Boolean requiredTabSwitch = false;
-
+    bool finished = false;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -73,10 +75,33 @@ public class Computer : Control
     
     void setApplicantList(List<homeless> applicants){
         ApplicantsList = applicants;
+        setOptionButtons();
         greetingConversation();
     }
 
+    public void setOptionButtons()
+    {
+        for (int i = 0; i < ApplicantsList.Count; i++)
+        {
+            Random random = new Random();
+            int selectedIndex = random.Next(homelessAnswerSheet.Length);
+            while (homelessAnswerSheet[selectedIndex] != 0)
+            {
+                selectedIndex = random.Next(homelessAnswerSheet.Length);
+            }
+            GetNode<JobListingBase>("Browser/Jobs/VBoxContainer/JobListing" + (selectedIndex+1)).setCorrectApplicant(ApplicantsList[i]);
+            homelessAnswerSheet[selectedIndex] = 1;
+        }
+    }
     void greetingConversation(){
+        if(currentApplicant == 6)
+        {
+            addTextToLog(Username, "\n\n[color=white]---Go Select and Submit Your Answers In the Jobs Tab!---[/color]");
+            finished = true;
+            selectedAnswersChanged(true);
+            selectedAnswersChanged(false);
+            return;
+        }
         addTextToLog(Username, "Hello, Welcome to No More Drifting! \n What is your name?");
         addTextToLog(ApplicantsList[currentApplicant].Name, "My name is " + ApplicantsList[currentApplicant].Name);
         addTextToLog(Username, "Ok lets get to find you a sutiable job " + ApplicantsList[currentApplicant].Name);
@@ -142,13 +167,6 @@ public class Computer : Control
     }
 
     void addPersonToApplicatentList(String name){
-        Random random = new Random();
-        int selectedIndex = random.Next(1, homelessAnswerSheet.Length+1);
-        while(homelessAnswerSheet[selectedIndex] != 0){
-            selectedIndex = random.Next(homelessAnswerSheet.Length);
-        }
-        //GetNode<JobListingBase>("Browser/Jobs/VBoxContainer/JobListing" + selectedIndex).setCorrectApplicant(ApplicantsList[currentApplicant]);
-        homelessAnswerSheet[selectedIndex] = 1;
         for(int i = 1; i <= 6; i++){
             GetNode<OptionButton>("Browser/Jobs/VBoxContainer/JobListing" + i +"/OptionButton").AddItem(name);
         }
@@ -236,8 +254,9 @@ public class Computer : Control
             var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
             ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
             MusicPlayer.Play();
-        } else if (prevTab == 1){
+        } else if (prevTab == 1 && requiredTabSwitch){
             
+            requiredTabSwitch = false;
             greetingConversation();
         }
         prevTab = tab;
@@ -247,5 +266,19 @@ public class Computer : Control
     {
         var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
         ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
+    }
+
+    public void selectedAnswersChanged(bool increased)
+    {
+        numAnswers = increased ? numAnswers + 1 : numAnswers - 1;
+        TextureButton theButton = GetNode<TextureButton>("Browser/Jobs/VBoxContainer/SubmitButton");
+        if(numAnswers != 6 || !finished)
+        {
+            theButton.Disabled = true;
+        }
+        else
+        {
+            theButton.Disabled=false;
+        }
     }
 }
