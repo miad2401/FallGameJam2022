@@ -29,7 +29,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 2 )
 
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="ScratchedGlass" type="TextureRect" parent="."]
 margin_left = -570.422
 margin_top = 3.0
 margin_right = 514.295
@@ -37,7 +37,7 @@ margin_bottom = 603.0
 texture = ExtResource( 1 )
 expand = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Bezel" type="TextureRect" parent="."]
 margin_left = -581.202
 margin_top = -0.652
 margin_right = 517.452
@@ -56,7 +56,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Log" type="Tabs" parent="Browser"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -125,6 +124,7 @@ disabled = true
 text = "C"
 
 [node name="Jobs" type="Tabs" parent="Browser"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
