@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Art/Job/Joey_45_degrees_Heart.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/JobListingBase.cs" type="Script" id=2]
 
 [node name="JobListings" type="GridContainer"]
@@ -15,6 +15,7 @@ margin_bottom = 56.0
 rect_min_size = Vector2( 64, 56 )
 texture = ExtResource( 1 )
 expand = true
+stretch_mode = 1
 
 [node name="JobDescr" type="RichTextLabel" parent="."]
 margin_left = 68.0
