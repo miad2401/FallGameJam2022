@@ -286,7 +286,7 @@ public class Computer : Control
     public void selectedAnswersChanged(bool increased)
     {
         numAnswers = increased ? numAnswers + 1 : numAnswers - 1;
-        TextureButton theButton = GetNode<TextureButton>("Browser/Jobs/VBoxContainer/SubmitButton");
+        Button theButton = GetNode<Button>("Browser/Jobs/VBoxContainer/SubmitButton");
         if(numAnswers != 6 || !finished)
         {
             theButton.Disabled = true;
