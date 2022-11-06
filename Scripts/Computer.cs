@@ -241,6 +241,7 @@ public class Computer : Control
         SoundEffectsVolumeDb = soundSettings.SoundEffectsVolumeDb;
         SoundEffectsPlayer.VolumeDb = SoundEffectsVolumeDb;
         SoundEffectsSlider.Value = soundSettings.SoundEffectsSliderValue;
+        MusicPlayer.Play();
     }
 
     public void OnBrowserTabChanged(int tab)
