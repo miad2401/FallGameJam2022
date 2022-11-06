@@ -294,8 +294,8 @@ public class Computer : Control
                 score++;
             }
         }
-        GetNode<Control>("../../Control").Visible = true;
-        Label label = GetNode<Label>("../../Control/Label");
+        GetNode<Control>("../../FinishScreen").Visible = true;
+        Label label = GetNode<Label>("../../Control/ScoreLabel");
         label.Text = "You changed " + score;
         if(score == 1){
             label.Text += " life out of 6";
