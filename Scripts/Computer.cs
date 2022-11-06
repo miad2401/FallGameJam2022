@@ -32,6 +32,7 @@ public class Computer : Control
     List<String> Questions = new List<String>();
     //Stores todays applicants
     List<homeless> ApplicantsList;
+    int[] homelessAnswerSheet = new int[6];
     int currentApplicant = 0;
     int currentQuestionSet = 0;
     Boolean requiredTabSwitch = false;
@@ -139,6 +140,13 @@ public class Computer : Control
     }
 
     void addPersonToApplicatentList(String name){
+        Random random = new Random();
+        int selectedIndex = random.Next(1, homelessAnswerSheet.Length+1);
+        while(homelessAnswerSheet[selectedIndex] != 0){
+            selectedIndex = random.Next(homelessAnswerSheet.Length);
+        }
+        GetNode<JobListingBase>("Browser/Jobs/VBoxContainer/JobListing" + selectedIndex).setCorrectApplicant(ApplicantsList[currentApplicant]);
+        homelessAnswerSheet[selectedIndex] = 1;
         for(int i = 1; i <= 6; i++){
             GetNode<OptionButton>("Browser/Jobs/VBoxContainer/JobListing" + i +"/OptionButton").AddItem(name);
         }
@@ -233,9 +241,13 @@ public class Computer : Control
         prevTab = tab;
     }
 
+<<<<<<< Updated upstream
     public void OnSettingsTabClose(int tab)
     {
         var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
         ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
     }
+=======
+
+>>>>>>> Stashed changes
 }

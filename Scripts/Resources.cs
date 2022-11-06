@@ -15,6 +15,7 @@ public class homeless : Resource
 
     [Export]
     public Texture Body { get; set; }
+
     public homeless(String name = "", Tuple<String, List<Trait>> job = null, List<Tuple<String, List<String>, List<Trait>>> questionList = null, Texture body = null)
     {
         Name = name;
