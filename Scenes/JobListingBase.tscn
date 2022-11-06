@@ -10,16 +10,16 @@ columns = 2
 script = ExtResource( 2 )
 
 [node name="JobImage" type="TextureRect" parent="."]
-margin_right = 64.0
-margin_bottom = 56.0
+margin_right = 70.0
+margin_bottom = 57.0
 rect_min_size = Vector2( 64, 56 )
 texture = ExtResource( 1 )
 expand = true
 
 [node name="JobDescr" type="RichTextLabel" parent="."]
-margin_left = 68.0
-margin_right = 468.0
-margin_bottom = 56.0
+margin_left = 78.0
+margin_right = 478.0
+margin_bottom = 57.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 400, 0 )
@@ -33,16 +33,16 @@ asdnw qwel;qnk qwne ;k2"
 fit_content_height = true
 
 [node name="Label" type="Label" parent="."]
-margin_top = 63.0
-margin_right = 64.0
-margin_bottom = 77.0
+margin_top = 74.0
+margin_right = 70.0
+margin_bottom = 91.0
 text = "Applicant:"
 
 [node name="OptionButton" type="OptionButton" parent="."]
-margin_left = 68.0
-margin_top = 60.0
-margin_right = 468.0
-margin_bottom = 80.0
+margin_left = 78.0
+margin_top = 65.0
+margin_right = 478.0
+margin_bottom = 101.0
 text = "- Select Applicant -"
 align = 1
 items = [ "- Select Applicant -", null, false, 0, null ]

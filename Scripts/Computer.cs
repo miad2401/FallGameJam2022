@@ -121,13 +121,13 @@ public class Computer : Control
         //Second prints the given text
         if (name == Username)
         {
-            LogText.AppendBbcode("[right][u][color=blue]" + name + ":[/color][/u][/right]");
-            LogText.AppendBbcode("[right][color=blue]" + text + "[/color][/right]\n");
+            LogText.AppendBbcode("[right][u][color=lime]" + name + ":[/color][/u][/right]");
+            LogText.AppendBbcode("[right][color=lime]" + text + "[/color][/right]\n\n");
         }
         else
         {
             LogText.AppendBbcode("[u]" + name + ":[/u]\n");
-            LogText.AppendBbcode(text + "\n");
+            LogText.AppendBbcode(text + "\n\n");
         }
     }
 
@@ -137,7 +137,7 @@ public class Computer : Control
         LogText.AppendBbcode("[right][u]---Ask one of the following questions---[/u][/right]\n");
         for(int i = 3* currentQuestionSet; i < currentQuestionSet * 3 + 3; i++){
             Questions.Add(ApplicantsList[currentApplicant].QuestionList[i].Item1);
-            LogText.AppendBbcode("[right][color=blue]"+ApplicantsList[currentApplicant].QuestionList[i].Item1+"[/color][/right]\n");
+            LogText.AppendBbcode("[right][color=blue]- "+ApplicantsList[currentApplicant].QuestionList[i].Item1+"[/color][/right]\n");
         }
         waitForButtonClick();      
     }
@@ -171,11 +171,11 @@ public class Computer : Control
         }else{
             EmitSignal(nameof(moveApplicant), ApplicantsList[currentApplicant], false);
             addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours \n" 
-                                + "[color=white][u]---Switch Over To The Jobs Tab To Look For Compatiable Jobs---\n[/u][/color]"
+                                + "[color=white][u]---Switch To The Jobs Tab To Look For Jobs Listings---\n[/u][/color]"
                                 +"[rainbow]"
-                                +"==========================================================\n"
+                                +"=============================================================\n"
                                 +"=========================================================="
-                                +"==========================================================[/rainbow]\n");
+                                +"================================================================[/rainbow]\n");
             currentQuestionSet = 0;
             currentApplicant++;
             requiredTabSwitch = true;
