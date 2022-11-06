@@ -14,10 +14,8 @@ texture = ExtResource( 1 )
 expand = true
 
 [node name="MenuButton" type="Button" parent="."]
-margin_left = 883.0
-margin_top = 558.0
-margin_right = 1012.0
-margin_bottom = 587.0
+margin_right = 129.0
+margin_bottom = 29.0
 text = "Go To Main Menu"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]

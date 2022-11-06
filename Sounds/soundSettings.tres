@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource( 1 )
-MusicVolumeDb = -9.41139
-MusicSliderValue = 0.3384
-WhiteNoiseVolumeDb = -5.78919
-WhiteNoiseSliderValue = 0.5135
+MusicVolumeDb = -5.43617
+MusicSliderValue = 0.5348
+WhiteNoiseVolumeDb = -5.3104
+WhiteNoiseSliderValue = 0.5426
 SoundEffectsVolumeDb = -5.27207
 SoundEffectsSliderValue = 0.545
