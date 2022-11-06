@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/StartingMenu.cs" type="Script" id=1]
 [ext_resource path="res://Sounds/Music/DriftyQuestioningAndante.mp3" type="AudioStream" id=2]
 [ext_resource path="res://Sounds/SoundEffects/TypewriterClick2.mp3" type="AudioStream" id=3]
-[ext_resource path="res://Sounds/SoundEffects/TypewriterClick.mp3" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/WhiteNoise/fan.mp3" type="AudioStream" id=4]
 
 [node name="StartingMenu" type="Control"]
 anchor_right = 1.0
@@ -50,6 +50,7 @@ margin_bottom = 92.0
 text = "Exit"
 
 [node name="Settings" type="Panel" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -78,42 +79,42 @@ grow_vertical = 2
 
 [node name="MusicLabel" type="Label" parent="Settings/SliderHolder"]
 margin_right = 448.0
-margin_bottom = 14.0
+margin_bottom = 17.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Music Volume:"
 
 [node name="MusicSlider" type="HSlider" parent="Settings/SliderHolder"]
-margin_top = 18.0
+margin_top = 25.0
 margin_right = 448.0
-margin_bottom = 34.0
+margin_bottom = 57.0
 step = 0.0
 
 [node name="WhiteNoiseLabel" type="Label" parent="Settings/SliderHolder"]
-margin_top = 38.0
+margin_top = 65.0
 margin_right = 448.0
-margin_bottom = 52.0
+margin_bottom = 82.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "White Noise Volume:"
 
 [node name="WhiteNoiseSlider" type="HSlider" parent="Settings/SliderHolder"]
-margin_top = 56.0
+margin_top = 90.0
 margin_right = 448.0
-margin_bottom = 72.0
+margin_bottom = 122.0
 
 [node name="SoundEffectsLabel" type="Label" parent="Settings/SliderHolder"]
-margin_top = 76.0
+margin_top = 130.0
 margin_right = 448.0
-margin_bottom = 90.0
+margin_bottom = 147.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Sound Effects Volume:"
 
 [node name="SoundEffectsSlider" type="HSlider" parent="Settings/SliderHolder"]
-margin_top = 94.0
+margin_top = 155.0
 margin_right = 448.0
-margin_bottom = 110.0
+margin_bottom = 187.0
 
 [node name="ExitSettingsButton" type="Button" parent="Settings"]
 anchor_left = 0.5
@@ -128,13 +129,12 @@ text = "Exit Settings"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
-autoplay = true
-
-[node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
 
 [node name="WhiteNoisePlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
+[node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/SettingsButton" to="." method="OnSettingsButtonPressed"]

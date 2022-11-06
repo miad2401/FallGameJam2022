@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class Main : Control
 {
+    [Signal] public delegate void setApplicantList(List<homeless> homelessList);
     [Export] private readonly int numHomeless;
     [Export] private readonly int numJobTraits;
     [Export] private readonly int numQuestionTraits;
@@ -14,35 +15,45 @@ public class Main : Control
     [Export] private readonly string questionsPath;
     [Export] private readonly string charactersPath;
     private List<homeless> homelessList;
+
+    private Control CharactersHolder;
+    private bool canMoveApplicant = false;
+    private Vector2 moveTo;
+    private Vector2 moveFrom;
+    float applicantMoveProgress;
+    float timeToMoveApplicant = 2;
+    float applicantXProgress;
+    float applicantYProgress;
+    Sprite currentSprite;
     public override void _Ready()
     {
+        Connect(nameof(setApplicantList), GetNode("/root/Main/HBoxContainer/Computer"), "setApplicantList");
+
         homelessList = GenerateHomeless(numHomeless);
-        //Debug
-        /*
-        foreach (homeless homeless in homelessList)
+        CharactersHolder = GetNode<Control>("HBoxContainer/Environment/CharactersHolder");
+        EmitSignal(nameof(setApplicantList), homelessList);
+    }
+
+    public override void _PhysicsProcess(float delta)
+    {
+        if (canMoveApplicant)
         {
-            
-            GD.Print("Name: " + homeless.Name);
-            GD.Print("Job: " + homeless.Job.Item1);
-            foreach (Trait trait in homeless.Job.Item2)
+            if (applicantMoveProgress >= timeToMoveApplicant)
             {
-                GD.Print("Trait: " + trait);
+                canMoveApplicant = false;
+                if(moveTo.x == CharactersHolder.GetNode<Position2D>("EndPosition").Position.x)
+                {
+                    currentSprite.QueueFree();
+                }
             }
-            foreach (Tuple<String, List<String>, List<Trait>> question in homeless.QuestionList)
+            else
             {
-                GD.Print("Question: " + question.Item1);
-                foreach(String answer in question.Item2)
-                {
-                    GD.Print("Answer: " + answer);
-                }
-                foreach(Trait trait in question.Item3)
-                {
-                    GD.Print("Trait: " + trait);
-                }
-            }        
+                applicantMoveProgress += delta;
+                applicantXProgress = applicantMoveProgress * (moveFrom.x - moveTo.x) / timeToMoveApplicant;
+                applicantYProgress = applicantMoveProgress * (moveFrom.y - moveTo.y) / timeToMoveApplicant;
+                currentSprite.Position = new Vector2(moveFrom.x - applicantXProgress, moveFrom.y - applicantYProgress);
+            }
         }
-        */
-        
     }
 
     private List<homeless> GenerateHomeless(int numHomeless)
@@ -125,21 +136,24 @@ public class Main : Control
             //Randomize Question
             List<Tuple<string, List<string>, List<Trait>>> selectedQuestionList = new List<Tuple<string, List<string>, List<Trait>>>();
             List<Trait> traitList = new List<Trait>();
-            for (int j = 0; j < numQuestionTraits * 3; j++)
+            for(int l = 0; l < 3; l++)
             {
-                if(j % numQuestionTraits == 0)
+                for (int j = 0; j < numQuestionTraits * 3; j++)
                 {
-                    traitList.Add(selectedJob.Item2[j / 3]);
-                }
-                else
-                {
-                    traitList.Insert(rand.Next(traitList.Count+1), PossibleTraits[rand.Next(PossibleTraits.Length-1)]);
-                }
-                if(j % numQuestionTraits == numQuestionTraits - 1)
-                {
-                    Tuple<string, List<string>, List<Trait>> randomQuestion = Questions[rand.Next(Questions.Count)];
-                    selectedQuestionList.Add(new Tuple<string, List<string>, List<Trait>>(randomQuestion.Item1, randomQuestion.Item2, traitList));
-                    traitList = new List<Trait>();
+                    if (j % numQuestionTraits == 0)
+                    {
+                        traitList.Add(selectedJob.Item2[j / 3]);
+                    }
+                    else
+                    {
+                        traitList.Insert(rand.Next(traitList.Count + 1), PossibleTraits[rand.Next(PossibleTraits.Length - 1)]);
+                    }
+                    if (j % numQuestionTraits == numQuestionTraits - 1)
+                    {
+                        Tuple<string, List<string>, List<Trait>> randomQuestion = Questions[rand.Next(Questions.Count)];
+                        selectedQuestionList.Add(new Tuple<string, List<string>, List<Trait>>(randomQuestion.Item1, randomQuestion.Item2, traitList));
+                        traitList = new List<Trait>();
+                    }
                 }
             }
             //Randomize CharacterTexture
@@ -153,5 +167,36 @@ public class Main : Control
             homelessListBuilder.Add(new homeless(homelessName, selectedJob, selectedQuestionList, characterTexture));
         }
         return homelessListBuilder;
+    }
+
+    private void moveApplicant(homeless applicant, bool entered)
+    {
+        if (entered)
+        {
+            Sprite newSprite = new Sprite();
+            newSprite.Texture = applicant.Body;
+            newSprite.Position = CharactersHolder.GetNode<Position2D>("StartPosition").Position;
+            currentSprite = newSprite;
+            applicantMoveProgress = 0;
+            applicantXProgress = 0;
+            applicantYProgress = 0;
+            canMoveApplicant = true;
+            moveFrom = currentSprite.Position;
+            moveTo = CharactersHolder.GetNode<Position2D>("ChairPosition").Position;
+            CharactersHolder.AddChild(currentSprite);
+        }
+        else
+        {
+            applicantMoveProgress = 0;
+            applicantXProgress = 0;
+            applicantYProgress = 0;
+            canMoveApplicant = true;
+            moveFrom = currentSprite.Position;
+            moveTo = CharactersHolder.GetNode<Position2D>("EndPosition").Position;
+        }
+    }
+
+    void _on_ContinueButton_pressed(){
+        GetTree().ChangeScene("res://Scenes/Credits.tscn");
     }
 }

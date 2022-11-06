@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Art/Job/StoreShelf.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Credits.cs" type="Script" id=2]
+
+[node name="Credits" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="CreditBackground" type="TextureRect" parent="."]
+margin_right = 1026.0
+margin_bottom = 602.0
+texture = ExtResource( 1 )
+expand = true
+
+[node name="MenuButton" type="Button" parent="."]
+margin_left = 883.0
+margin_top = 558.0
+margin_right = 1012.0
+margin_bottom = 587.0
+text = "Go To Main Menu"
+
+[connection signal="pressed" from="MenuButton" to="." method="_on_MainButton_pressed"]

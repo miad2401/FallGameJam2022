@@ -3,7 +3,6 @@ using System;
 
 public enum Trait
 {
-    MissingTrait,
     Strong,
     Weak,
     Persistent,
