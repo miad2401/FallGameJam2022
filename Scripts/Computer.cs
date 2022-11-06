@@ -307,7 +307,7 @@ public class Computer : Control
             }
         }
         GetNode<Control>("../../FinishScreen").Visible = true;
-        Label label = GetNode<Label>("../../Control/ScoreLabel");
+        Label label = GetNode<Label>("../../FinishScreen/ScoreLabel");
         label.Text = "You changed " + score;
         if(score == 1){
             label.Text += " life out of 6";
