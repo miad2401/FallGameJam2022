@@ -5,7 +5,8 @@
 
 [node name="JobListings" type="GridContainer"]
 margin_right = 480.0
-margin_bottom = 88.0
+margin_bottom = 101.0
+rect_scale = Vector2( 1, 0.8 )
 columns = 2
 script = ExtResource( 2 )
 
