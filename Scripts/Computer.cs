@@ -39,6 +39,8 @@ public class Computer : Control
     int currentQuestionSet = 0;
     Boolean requiredTabSwitch = false;
     bool finished = false;
+
+    int score = 0;
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
@@ -279,6 +281,25 @@ public class Computer : Control
         else
         {
             theButton.Disabled=false;
+        }
+    }
+
+    void _on_SubmitButton_pressed(){
+        for(int i = 1; i <= 6; i++){
+            String correctApplicantName = GetNode<JobListingBase>("Browser/Jobs/VBoxContainer/JobListing" + i).getCorrectApplicant().Name;
+            OptionButton optionButton = GetNode<OptionButton>("Browser/Jobs/VBoxContainer/JobListing" + i +"/OptionButton");
+            String selectedApplicantName = optionButton.GetItemText(optionButton.GetSelectedId());
+            if(correctApplicantName == selectedApplicantName){
+                score++;
+            }
+        }
+        GetNode<Control>("../../Control").Visible = true;
+        Label label = GetNode<Label>("../../Control/Label");
+        label.Text = "You changed " + score;
+        if(score == 1){
+            label.Text += " life out of 6";
+        }else{
+            label.Text += " lives out of 6";
         }
     }
 }

@@ -56,6 +56,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Log" type="Tabs" parent="Browser"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -252,7 +253,6 @@ text = "Jerry"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="SoundPlayers"]
 stream = ExtResource( 4 )
-autoplay = true
 
 [node name="WhiteNoisePlayer" type="AudioStreamPlayer" parent="SoundPlayers"]
 stream = ExtResource( 5 )
@@ -264,6 +264,7 @@ stream = ExtResource( 6 )
 [connection signal="pressed" from="Browser/Log/VBoxContainer/HBoxContainer/OptionA" to="." method="_on_OptionButton_pressed" binds= [ 0 ]]
 [connection signal="pressed" from="Browser/Log/VBoxContainer/HBoxContainer/OptionB" to="." method="_on_OptionButton_pressed" binds= [ 1 ]]
 [connection signal="pressed" from="Browser/Log/VBoxContainer/HBoxContainer/OptionC" to="." method="_on_OptionButton_pressed" binds= [ 2 ]]
+[connection signal="pressed" from="Browser/Jobs/VBoxContainer/SubmitButton" to="." method="_on_SubmitButton_pressed"]
 [connection signal="tab_changed" from="Browser/Settings" to="." method="OnSettingsTabChanged"]
 [connection signal="tab_clicked" from="Browser/Settings" to="." method="OnSettingsTabClicked"]
 [connection signal="drag_ended" from="Browser/Settings/SliderHolder/MusicSlider" to="." method="OnSliderDragEnded" binds= [ "Music" ]]

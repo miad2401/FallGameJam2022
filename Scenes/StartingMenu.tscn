@@ -128,7 +128,6 @@ text = "Exit Settings"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
-autoplay = true
 
 [node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
