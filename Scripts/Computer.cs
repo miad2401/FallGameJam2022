@@ -34,6 +34,7 @@ public class Computer : Control
     List<homeless> ApplicantsList;
     int currentApplicant = 0;
     int currentQuestionSet = 0;
+    Boolean requiredTabSwitch = false;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -129,10 +130,11 @@ public class Computer : Control
             currentQuestionSet++;
             askQuestions();
         }else{
-            addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours \n\n Next!");
+            addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours \n" 
+                                + "[color=white][u]---Switch Over To The Jobs Tab To Look For Compatiable Jobs---[/u][/color]\n");
             currentQuestionSet = 0;
             currentApplicant++;
-            greetingConversation();
+            requiredTabSwitch = true;
         }
     }
 
@@ -224,6 +226,9 @@ public class Computer : Control
             var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
             ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
             MusicPlayer.Play();
+        } else if (prevTab == 1){
+            
+            greetingConversation();
         }
         prevTab = tab;
     }
