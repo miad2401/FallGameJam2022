@@ -174,7 +174,6 @@ texture_disabled = ExtResource( 7 )
 expand = true
 
 [node name="Settings" type="Tabs" parent="Browser"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -247,7 +246,7 @@ margin_top = 19.0
 margin_right = 470.0
 margin_bottom = 39.0
 rect_min_size = Vector2( 0, 20 )
-text = "Jerry"
+text = "Mist"
 
 [node name="SoundPlayers" type="Node" parent="."]
 

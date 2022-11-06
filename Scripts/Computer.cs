@@ -96,14 +96,6 @@ public class Computer : Control
         }
     }
     void greetingConversation(){
-        if(currentApplicant == 6)
-        {
-            addTextToLog(Username, "\n\n[color=white]---Go Select and Submit Your Answers In the Jobs Tab!---[/color]");
-            finished = true;
-            selectedAnswersChanged(true);
-            selectedAnswersChanged(false);
-            return;
-        }
         addTextToLog(Username, "Hello, Welcome to No More Drifting! \n What is your name?");
         addTextToLog(ApplicantsList[currentApplicant].Name, "My name is " + ApplicantsList[currentApplicant].Name);
         addTextToLog(Username, "Ok lets get to find you a sutiable job " + ApplicantsList[currentApplicant].Name);
@@ -159,9 +151,18 @@ public class Computer : Control
         if(currentQuestionSet < 2){
             currentQuestionSet++;
             askQuestions();
+        }else if(currentApplicant == 5){
+            addTextToLog(Username, "\n\n[color=white]---Go Select and Submit Your Answers In the Jobs Tab!---[/color]");
+            finished = true;
+            selectedAnswersChanged(true);
+            selectedAnswersChanged(false);
         }else{
             addTextToLog(Username, "Thank You we will let you know if we find a job in a few hours \n" 
-                                + "[color=white][u]---Switch Over To The Jobs Tab To Look For Compatiable Jobs---[/u][/color]\n");
+                                + "[color=white][u]---Switch Over To The Jobs Tab To Look For Compatiable Jobs---\n[/u][/color]"
+                                +"[rainbow]"
+                                +"==========================================================\n"
+                                +"=========================================================="
+                                +"==========================================================[/rainbow]\n");
             currentQuestionSet = 0;
             currentApplicant++;
             requiredTabSwitch = true;
@@ -172,12 +173,6 @@ public class Computer : Control
         for(int i = 1; i <= 6; i++){
             GetNode<OptionButton>("Browser/Jobs/VBoxContainer/JobListing" + i +"/OptionButton").AddItem(name);
         }
-    }
-
-    void changeJobListingDescription(String desc, int index){
-        RichTextLabel listingDescr = GetNode<RichTextLabel>("Browser/Jobs/VBoxContainer/JobListing" + index +"/JobDescr");
-        listingDescr.Clear();
-        listingDescr.AppendBbcode(desc);
     }
 
     private void OnSoundSliderValueChanged(float linearValue, String name)
