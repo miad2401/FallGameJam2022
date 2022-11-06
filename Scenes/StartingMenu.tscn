@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/StartingMenu.cs" type="Script" id=1]
-[ext_resource path="res://Sounds/Music/DriftyQuestioningAndante.mp3" type="AudioStream" id=2]
+[ext_resource path="res://Sounds/Music/DriftyTheme.mp3" type="AudioStream" id=2]
 [ext_resource path="res://Sounds/SoundEffects/TypewriterClick2.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Sounds/WhiteNoise/fan.mp3" type="AudioStream" id=4]
 
