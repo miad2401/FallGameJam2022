@@ -5,7 +5,7 @@
 [ext_resource path="res://Scripts/Main.cs" type="Script" id=3]
 [ext_resource path="res://Art/Environment/chair.png" type="Texture" id=4]
 [ext_resource path="res://Art/Characters/Joey.png" type="Texture" id=5]
-[ext_resource path="res://Art/Environment/desk.png" type="Texture" id=6]
+[ext_resource path="res://Art/Environment/mousenkeboard.png" type="Texture" id=6]
 [ext_resource path="res://Art/Environment/top_layer_window.png" type="Texture" id=7]
 
 [node name="Main" type="Control"]
@@ -66,8 +66,11 @@ margin_bottom = 600.0
 texture = ExtResource( 7 )
 
 [node name="Desk" type="TextureRect" parent="HBoxContainer/Environment"]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = -1.0
+margin_top = 462.0
+margin_right = 959.0
+margin_bottom = 692.0
+rect_scale = Vector2( 0.527297, 0.608979 )
 texture = ExtResource( 6 )
 
 [node name="Computer" parent="HBoxContainer" instance=ExtResource( 1 )]
