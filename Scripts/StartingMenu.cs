@@ -126,7 +126,7 @@ public class StartingMenu : Control
 
 	public void loadSoundSettings(String filePath)
     {
-		soundSettings soundSettings = ResourceLoader.Load<soundSettings>(filePath);
+		soundSettings soundSettings = ResourceLoader.Load<soundSettings>(filePath, null, true);
 		MusicVolumeDb = soundSettings.MusicVolumeDb;
 		MusicPlayer.VolumeDb = MusicVolumeDb;
 		MusicSlider.Value = soundSettings.MusicSliderValue;
@@ -136,5 +136,6 @@ public class StartingMenu : Control
 		SoundEffectsVolumeDb = soundSettings.SoundEffectsVolumeDb;
 		SoundEffectsPlayer.VolumeDb = SoundEffectsVolumeDb;
 		SoundEffectsSlider.Value = soundSettings.SoundEffectsSliderValue;
+		MusicPlayer.Play();
 	}
 }

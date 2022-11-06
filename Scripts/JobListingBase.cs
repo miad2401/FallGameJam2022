@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class JobListingBase : GridContainer
 {
@@ -10,17 +11,27 @@ public class JobListingBase : GridContainer
     private homeless correctApplicant;
     private bool selectedCorrect = false;
     private bool selectedAnAnswer = false;
+    private String selectedDecriptionFormat;
 
     private OptionButton optionButton;
     public override void _Ready()
     {
         optionButton = GetNode<OptionButton>("OptionButton");
         Connect(nameof(SelectedAnswersChanged), GetNode("/root/Main/HBoxContainer/Computer"), "selectedAnswersChanged");
+        
+        String[] JobDescriptions = System.IO.File.ReadAllLines("Resources/jobDescriptions.tres");
+        List<String> usedJobDescriptions = new List<string>();
+        Random rand = new Random();
+        selectedDecriptionFormat =JobDescriptions[rand.Next(JobDescriptions.Length)];
+
+        String[] jobImageLocations = System.IO.File.ReadAllLines("Resources/jobList.tres");
+        setIcon(GD.Load<Texture>("res://Art/Job/" + jobImageLocations[rand.Next(jobImageLocations.Length)] + ".png"));
     }
 
     public void setIcon(Texture icon)
     {
         Icon = icon;
+        GetNode<TextureRect>("JobImage").Texture = Icon;
     }
     public void setDescription(String description)
     {
@@ -30,7 +41,7 @@ public class JobListingBase : GridContainer
     public void setCorrectApplicant(homeless cApplicant)
     {
         correctApplicant = cApplicant;
-        setDescription(correctApplicant.Name);
+        setDescription(correctApplicant.Job.Item1 + "\n" + String.Format(selectedDecriptionFormat, correctApplicant.Job.Item2[0], correctApplicant.Job.Item2[1], correctApplicant.Job.Item2[2]));
     }
     public homeless getCorrectApplicant()
     {
