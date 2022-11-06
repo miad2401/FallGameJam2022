@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/fan.mp3-75bdacb2ddcb28f15bbcf51bb14779de.mp3str"
+
+[deps]
+
+source_file="res://Sounds/WhiteNoise/fan.mp3"
+dest_files=[ "res://.import/fan.mp3-75bdacb2ddcb28f15bbcf51bb14779de.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

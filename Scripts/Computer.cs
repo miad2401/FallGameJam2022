@@ -252,6 +252,8 @@ public class Computer : Control
         SoundEffectsPlayer.VolumeDb = SoundEffectsVolumeDb;
         SoundEffectsSlider.Value = soundSettings.SoundEffectsSliderValue;
         MusicPlayer.Play();
+        WhiteNoisePlayer.Play();
+        SoundEffectsPlayer.Play();
     }
 
     public void OnBrowserTabChanged(int tab)
@@ -265,6 +267,8 @@ public class Computer : Control
             var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
             ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
             MusicPlayer.Play();
+            WhiteNoisePlayer.Play();
+            SoundEffectsPlayer.Play();
         } else if (prevTab == 1 && requiredTabSwitch){
             
             requiredTabSwitch = false;

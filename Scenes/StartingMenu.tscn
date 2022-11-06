@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/StartingMenu.cs" type="Script" id=1]
 [ext_resource path="res://Sounds/Music/DriftyQuestioningAndante.mp3" type="AudioStream" id=2]
 [ext_resource path="res://Sounds/SoundEffects/TypewriterClick2.mp3" type="AudioStream" id=3]
-[ext_resource path="res://Sounds/SoundEffects/TypewriterClick.mp3" type="AudioStream" id=4]
+[ext_resource path="res://Sounds/WhiteNoise/fan.mp3" type="AudioStream" id=4]
 
 [node name="StartingMenu" type="Control"]
 anchor_right = 1.0
@@ -129,11 +129,11 @@ text = "Exit Settings"
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
 
-[node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-
 [node name="WhiteNoisePlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+
+[node name="SoundEffectsPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/SettingsButton" to="." method="OnSettingsButtonPressed"]
