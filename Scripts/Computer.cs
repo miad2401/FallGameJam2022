@@ -145,7 +145,7 @@ public class Computer : Control
         while(homelessAnswerSheet[selectedIndex] != 0){
             selectedIndex = random.Next(homelessAnswerSheet.Length);
         }
-        GetNode<JobListingBase>("Browser/Jobs/VBoxContainer/JobListing" + selectedIndex).setCorrectApplicant(ApplicantsList[currentApplicant]);
+        //GetNode<JobListingBase>("Browser/Jobs/VBoxContainer/JobListing" + selectedIndex).setCorrectApplicant(ApplicantsList[currentApplicant]);
         homelessAnswerSheet[selectedIndex] = 1;
         for(int i = 1; i <= 6; i++){
             GetNode<OptionButton>("Browser/Jobs/VBoxContainer/JobListing" + i +"/OptionButton").AddItem(name);
@@ -241,13 +241,9 @@ public class Computer : Control
         prevTab = tab;
     }
 
-<<<<<<< Updated upstream
     public void OnSettingsTabClose(int tab)
     {
         var soundSettings = GD.Load<CSharpScript>("res://Scripts/soundSettings.cs").New(MusicVolumeDb, MusicSlider.Value, WhiteNoiseVolumeDb, WhiteNoiseSlider.Value, SoundEffectsVolumeDb, SoundEffectsSlider.Value);
         ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
     }
-=======
-
->>>>>>> Stashed changes
 }
