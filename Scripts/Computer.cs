@@ -129,6 +129,7 @@ public class Computer : Control
             LogText.AppendBbcode("[u]" + name + ":[/u]\n");
             LogText.AppendBbcode(text + "\n\n");
         }
+        SoundEffectsPlayer.Play();
     }
 
     //Clears previous questions and adds new questions
@@ -137,7 +138,18 @@ public class Computer : Control
         LogText.AppendBbcode("[right][u]---Ask one of the following questions---[/u][/right]\n");
         for(int i = 3* currentQuestionSet; i < currentQuestionSet * 3 + 3; i++){
             Questions.Add(ApplicantsList[currentApplicant].QuestionList[i].Item1);
-            LogText.AppendBbcode("[right][color=blue]- "+ApplicantsList[currentApplicant].QuestionList[i].Item1+"[/color][/right]\n");
+            if(i % 3 == 0)
+            {
+                LogText.AppendBbcode("[right][color=#37d4ee]- " + ApplicantsList[currentApplicant].QuestionList[i].Item1 + "[/color][/right]\n");
+            }
+            else if(i % 3 == 1)
+            {
+                LogText.AppendBbcode("[right][color=#fb7291]- " + ApplicantsList[currentApplicant].QuestionList[i].Item1 + "[/color][/right]\n");
+            }
+            else
+            {
+                LogText.AppendBbcode("[right][color=#e7bf79]- " + ApplicantsList[currentApplicant].QuestionList[i].Item1 + "[/color][/right]\n");
+            }
         }
         waitForButtonClick();      
     }
@@ -253,7 +265,7 @@ public class Computer : Control
         SoundEffectsSlider.Value = soundSettings.SoundEffectsSliderValue;
         MusicPlayer.Play();
         WhiteNoisePlayer.Play();
-        SoundEffectsPlayer.Play();
+        (SoundEffectsPlayer.Stream as AudioStreamMP3).Loop = false;
     }
 
     public void OnBrowserTabChanged(int tab)
@@ -268,7 +280,6 @@ public class Computer : Control
             ResourceSaver.Save("res://Sounds/soundSettings.tres", soundSettings as soundSettings);
             MusicPlayer.Play();
             WhiteNoisePlayer.Play();
-            SoundEffectsPlayer.Play();
         } else if (prevTab == 1 && requiredTabSwitch){
             
             requiredTabSwitch = false;
