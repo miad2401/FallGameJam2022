@@ -59,31 +59,31 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Log" type="Tabs" parent="Browser"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 53.0
-margin_right = -8.0
-margin_bottom = -8.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Browser/Log"]
 margin_top = -10.0
 margin_right = 481.0
 margin_bottom = 528.0
-rect_min_size = Vector2( 470, 500 )
+rect_min_size = Vector2( 470, 560 )
 rect_pivot_offset = Vector2( -606.059, 85 )
 alignment = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Browser/Log/VBoxContainer"]
+margin_top = 24.0
 margin_right = 481.0
-margin_bottom = 480.0
+margin_bottom = 506.931
 grow_vertical = 0
-rect_min_size = Vector2( 0, 480 )
+rect_min_size = Vector2( 0, 482.931 )
 
 [node name="LogText" type="RichTextLabel" parent="Browser/Log/VBoxContainer/ScrollContainer"]
 margin_right = 465.0
-margin_bottom = 19.0
+margin_bottom = 15.0
 rect_min_size = Vector2( 465, 0 )
 rect_clip_content = false
 bbcode_enabled = true
@@ -91,14 +91,15 @@ fit_content_height = true
 scroll_following = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Browser/Log/VBoxContainer"]
-margin_top = 488.0
+margin_top = 510.0
 margin_right = 481.0
-margin_bottom = 538.0
+margin_bottom = 560.0
 rect_min_size = Vector2( 480, 50 )
 alignment = 1
 
 [node name="OptionA" type="Button" parent="Browser/Log/VBoxContainer/HBoxContainer"]
-margin_right = 155.0
+margin_left = 4.0
+margin_right = 159.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 155, 0 )
 rect_pivot_offset = Vector2( -480.339, -114 )
@@ -117,8 +118,8 @@ disabled = true
 text = "B"
 
 [node name="OptionC" type="Button" parent="Browser/Log/VBoxContainer/HBoxContainer"]
-margin_left = 326.0
-margin_right = 481.0
+margin_left = 322.0
+margin_right = 477.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 155, 0 )
 rect_pivot_offset = Vector2( -480.339, -114 )
@@ -127,6 +128,7 @@ disabled = true
 text = "C"
 
 [node name="Jobs" type="Tabs" parent="Browser"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -142,32 +144,26 @@ rect_min_size = Vector2( 480, 548 )
 rect_scale = Vector2( 1, 0.775 )
 
 [node name="JobListing1" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
-rect_scale = Vector2( 1, 1 )
 
 [node name="JobListing2" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 109.0
 margin_bottom = 210.0
-rect_scale = Vector2( 1, 1 )
 
 [node name="JobListing3" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 218.0
 margin_bottom = 319.0
-rect_scale = Vector2( 1, 1 )
 
 [node name="JobListing4" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 327.0
 margin_bottom = 428.0
-rect_scale = Vector2( 1, 1 )
 
 [node name="JobListing5" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 436.0
 margin_bottom = 537.0
-rect_scale = Vector2( 1, 1 )
 
 [node name="JobListing6" parent="Browser/Jobs/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 545.0
 margin_bottom = 646.0
-rect_scale = Vector2( 1, 1 )
 
 [node name="SubmitButton" type="Button" parent="Browser/Jobs/VBoxContainer"]
 margin_top = 654.0
