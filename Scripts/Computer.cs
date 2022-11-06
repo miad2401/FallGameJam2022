@@ -309,22 +309,25 @@ public class Computer : Control
     }
 
     void _on_SubmitButton_pressed(){
+        Control finishScreen = GetNode<Control>("../../FinishScreen");
+        String result = "";
         for(int i = 1; i <= 6; i++){
-            String correctApplicantName = GetNode<JobListingBase>("Browser/Jobs/VBoxContainer/JobListing" + i).getCorrectApplicant().Name;
+            homeless correctApplicantName = GetNode<JobListingBase>("Browser/Jobs/VBoxContainer/JobListing" + i).getCorrectApplicant();
             OptionButton optionButton = GetNode<OptionButton>("Browser/Jobs/VBoxContainer/JobListing" + i +"/OptionButton");
             String selectedApplicantName = optionButton.GetItemText(optionButton.GetSelectedId());
-            if(correctApplicantName == selectedApplicantName){
+
+            finishScreen.GetNode<TextureRect>("VBoxContainer/FinishShow"+i+"/Holder/TextureRect").Texture = correctApplicantName.Body;
+            finishScreen.GetNode<Label>("VBoxContainer/FinishShow"+i+"/Holder/Text/NameHolder").Text = correctApplicantName.Name;
+           
+            if(correctApplicantName.Name == selectedApplicantName){
                 score++;
+                result = "You Fixed Their life";
+            }else{
+                result = "You Ruined Their life";
             }
+             finishScreen.GetNode<Label>("VBoxContainer/FinishShow"+i+"/Holder/Text/ResultHolder").Text = result;
         }
-        GetNode<Control>("../../FinishScreen").Visible = true;
-        Label label = GetNode<Label>("../../FinishScreen/ScoreLabel");
-        label.Text = "You changed " + score;
-        if(score == 1){
-            label.Text += " life out of 6";
-        }else{
-            label.Text += " lives out of 6";
-        }
+        finishScreen.Visible = true;
     }
 
     public void MoveApplicant(homeless character, bool enter)

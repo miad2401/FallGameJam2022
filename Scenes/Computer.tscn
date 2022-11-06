@@ -35,7 +35,10 @@ bg_color = Color( 0.12549, 0.823529, 0.160784, 1 )
 [node name="Computer" type="Control"]
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_right = -2.0
+margin_left = -31.0
+margin_top = 152.0
+margin_right = -33.0
+margin_bottom = 152.0
 rect_min_size = Vector2( 510, 600 )
 rect_scale = Vector2( 0.922074, 1 )
 size_flags_horizontal = 3
