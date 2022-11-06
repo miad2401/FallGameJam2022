@@ -50,8 +50,8 @@ margin_bottom = 600.0
 texture = ExtResource( 4 )
 
 [node name="Joey" type="Sprite" parent="HBoxContainer/Environment"]
-position = Vector2( 252.563, 329 )
-scale = Vector2( 0.0837864, 0.08025 )
+position = Vector2( 280, 383.25 )
+scale = Vector2( 0.0645389, 0.053125 )
 texture = ExtResource( 5 )
 
 [node name="Glass" type="TextureRect" parent="HBoxContainer/Environment"]
