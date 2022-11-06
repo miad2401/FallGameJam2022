@@ -199,4 +199,9 @@ public class Main : Control
     void _on_ContinueButton_pressed(){
         GetTree().ChangeScene("res://Scenes/Credits.tscn");
     }
+
+    public void OnExitButtonPressed()
+    {
+        GetTree().Quit();
+    }
 }

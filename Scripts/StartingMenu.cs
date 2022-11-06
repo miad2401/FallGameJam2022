@@ -55,8 +55,9 @@ public class StartingMenu : Control
     }
     private void OnCreditsButtonPressed()
 	{
-		//Open Credits
-	}
+        GetTree().ChangeScene("res://Scenes/Credits.tscn");
+        //Open Credits
+    }
 
 	private void OnExitButtonPressed()
 	{
